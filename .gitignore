@@ -1,13 +1,13 @@
-# # # all ignore
-# /*
-# /.*
+# # all ignore
+/*
+/.*
 
-# # not ignore
-# # Emacs
-# !/.emacs.d/
+# not ignore
+# Emacs
+!/.emacs.d/
 
 
 
-# !/.zshrc
-# !/.gitconfig
-# !/.gitignore
+!/.zshrc
+!/.gitconfig
+!/.gitignore
