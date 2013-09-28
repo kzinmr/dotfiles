@@ -50,8 +50,7 @@
  "elpa"
  "auto-install"
  "config"
- ;"modules/org-mode/lisp" ; org-mode (Git HEAD)
- ;; "modules/org-mode/contrib/lisp"
+ "submodules"
  "el-get/el-get"
  )
 ;; (require 'info)
@@ -159,13 +158,13 @@
 ;;ddskk
 ;;https://github.com/hsaito/ddskk
 ;;in installing, add this to SKK-CFG in ddskk-*, & check "make what-where"
-;(setq SKK_DATADIR "share/skk")
-;(setq SKK_INFODIR "share/info")
-;(setq SKK_LISPDIR "elisp/skk")
-;(setq SKK_SET_JISYO t)
+(setq SKK_DATADIR "share/skk")
+(setq SKK_INFODIR "share/info")
+(setq SKK_LISPDIR "elisp/skk")
+(setq SKK_SET_JISYO t)
 ;;copy SKK-JISYO.L in "dic" directory, then make install
 ;;then skk-setup.el is loaded automatically
-;(require 'skk-autoloads)
+(require 'skk-autoloads)
 ;(global-set-key "\C-x\C-j" 'skk-mode)
 ;(global-set-key "\C-xj" 'skk-auto-fill-mode)
 ;; -----------------------------------------------------------
@@ -438,16 +437,17 @@
 ;;put ruby libraries in the path shown by "ruby -e 'puts $:'"
 ;;https://github.com/emacs-jp/migemo
 ;;https://github.com/koron/cmigemo
-;; (require 'migemo)
-;; (setq migemo-command "cmigemo")
-;; (setq migemo-options '("-q" "--emacs"))
-;; ;; Set your installed path
-;; (setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
-;; (setq migemo-user-dictionary nil)
-;; (setq migemo-regex-dictionary nil)
-;; (setq migemo-coding-system 'utf-8-unix)
-;; (load-library "migemo")
-;; (migemo-init)
+;;build&install cmigemo! https://github.com/koron/cmigemo/blob/master/doc/README_j.txt
+(require 'migemo)
+(setq migemo-command "cmigemo")
+(setq migemo-options '("-q" "--emacs"))
+;; Set your installed path
+(setq migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict")
+(setq migemo-user-dictionary nil)
+(setq migemo-regex-dictionary nil)
+(setq migemo-coding-system 'utf-8-unix)
+(load-library "migemo")
+(migemo-init)
 ;; -----------------------------------------------------------
 ;;;text editting----------------------------------------------
 ;;simplenote.el

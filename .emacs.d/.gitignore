@@ -2,6 +2,7 @@
 *.mod
 *.a
 *.so
+*.so
 *.la
 *.lo
 *.pyc
@@ -38,3 +39,4 @@ history
 abbrev_defs
 .skk-uim-jisyo
 .skk-uim-jisyo.lock
+*.L
