@@ -34,3 +34,6 @@ modules/*-stamp
 elpa
 auto-save-list
 url
+history
+abbrev_defs
+.skk-uim-jisyo
