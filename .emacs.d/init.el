@@ -44,7 +44,7 @@
 ;; -----------------------------------------------------------
 ;; adding load-path
 ;; mkdir these preveously
-;;;check priority by  M-x list-load-path-shadows
+;;;check priority(& hidden dirs) by  M-x list-load-path-shadows
 (add-to-load-path
  "elisp"
  "elpa"
@@ -99,6 +99,7 @@
 (eval-when-compile (require 'cl))
 (defvar ash-packages
   '(
+    popup ; for auto-complete
     auto-complete
     auto-install
     auto-save-buffers-enhanced
@@ -123,7 +124,6 @@
     org
     paredit
     point-undo
-    popup ; for auto-complete
     protobuf-mode ;http://code.google.com/p/protobuf/
 ;    raibow-delimiters
     rainbow-mode ;http://julien.danjou.info/projects/emacs-packages
@@ -158,13 +158,13 @@
 ;;ddskk
 ;;https://github.com/hsaito/ddskk
 ;;in installing, add this to SKK-CFG in ddskk-*, & check "make what-where"
-(setq SKK_DATADIR "share/skk")
-(setq SKK_INFODIR "share/info")
-(setq SKK_LISPDIR "elisp/skk")
-(setq SKK_SET_JISYO t)
+;; (setq SKK_DATADIR "/skk")
+;; (setq SKK_INFODIR "share/info")
+;; (setq SKK_LISPDIR "elisp/skk")
+;; (setq SKK_SET_JISYO t)
 ;;copy SKK-JISYO.L in "dic" directory, then make install
 ;;then skk-setup.el is loaded automatically
-(require 'skk-autoloads)
+;(require 'skk-autoloads)
 ;(global-set-key "\C-x\C-j" 'skk-mode)
 ;(global-set-key "\C-xj" 'skk-auto-fill-mode)
 ;; -----------------------------------------------------------
@@ -185,9 +185,10 @@
 (global-set-key "\C-c\C-u" 'dired-jump)
 (global-set-key "\C-c\C-d" 'delete-region)
 (global-set-key "\C-c\C-h" 'help-command)
+(global-set-key "\C-c\C-v" 'describe-variable)
 ;; -----------------------------------------------------------
-;;;dont show toolbar
-(tool-bar-mode nil)
+;;;dont show toolbar(set 0 but not nil for Em24)
+(tool-bar-mode 0)
 ;;;dont show dialogue box
 (setq use-dialog-box nil)
 (defalias 'message-box 'message)
@@ -386,7 +387,7 @@
 (require 'yasnippet)
 (yas--initialize)
 ;;(yas/load-directory "~/Dropbox/.emacs.d/plugins/yasnippet/snippets")
-;;(setq yas/snippet-dirs "~/Dropbox/.emacs.d/snippets")
+(setq yas/snippet-dirs "~/.emacs.d/etc/snippets")
 (require 'dropdown-list)
 (setq yas/prompt-functions '(yas/dropdown-prompt
                              yas/ido-prompt
@@ -677,7 +678,7 @@
 		   (define-key skk-j-mode-map "\\" 'self-insert-command)
 		   (define-key skk-j-mode-map "$" 'YaTeX-insert-dollar)))))
 ;;http://oku.edu.mie-u.ac.jp/~okumura/texwiki/?YaTeX
-;;fwdevince http://oku.edu.mie-u.ac.jp/~okumura/texwiki/?Evince%2Ffwdevince
+;; using zathula
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
 (setq auto-mode-alist
       (append '(("\\.tex$" . yatex-mode)
@@ -703,51 +704,8 @@
                               ((string-match "lualatex\\|luajitlatex\\|xelatex" tex-command) "texindy")
                               ((string-match "pdflatex\\|latex" tex-command) "makeindex")
                               (t "mendex")))
-(setq dvi2-command "evince")
+(setq dvi2-command "zathura -s -x \"emacsclient --no-wait +%{line} %{input}\"")
 (setq dviprint-command-format "acroread `echo %s | sed -e \"s/\\.[^.]*$/\\.pdf/\"`")
-(defun evince-forward-search ()
-  (interactive)
-  (progn
-    (process-kill-without-query
-     (start-process
-      "fwdevince"
-      nil
-      "fwdevince"
-      (expand-file-name
-       (concat (file-name-sans-extension (or YaTeX-parent-file
-                                             (save-excursion
-                                               (YaTeX-visit-main t)
-                                               buffer-file-name)))
-               ".pdf"))
-      (number-to-string (save-restriction
-                          (widen)
-                          (count-lines (point-min) (point))))
-      (buffer-name)))))
-(add-hook 'yatex-mode-hook
-          '(lambda ()
-             (define-key YaTeX-mode-map (kbd "C-c e") 'evince-forward-search)))
-(require 'dbus)
-(defun un-urlify (fname-or-url)
-  "A trivial function that replaces a prefix of file:/// with just /."
-  (if (string= (substring fname-or-url 0 8) "file:///")
-      (substring fname-or-url 7)
-    fname-or-url))
-(defun evince-inverse-search (file linecol &rest ignored)
-  (let* ((fname (un-urlify file))
-         (buf (find-file fname))
-         (line (car linecol))
-         (col (cadr linecol)))
-    (if (null buf)
-        (message "[Synctex]: %s is not opened..." fname)
-      (switch-to-buffer buf)
-      (goto-line (car linecol))
-      (unless (= col -1)
-        (move-to-column col)))))
-(dbus-register-signal
- :session nil "/org/gnome/evince/Window/0"
- "org.gnome.evince.Window" "SyncSource"
- 'evince-inverse-search)
-
 (add-hook 'yatex-mode-hook
           '(lambda ()
              (auto-fill-mode -1)))
