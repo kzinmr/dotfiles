@@ -55,17 +55,17 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 
 case "${TERM}" in
-kterm*|xterm*)
-    export LSCOLORS=exfxcxdxbxegedabagacad
-    export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-    ;;
-cons25)
-    unset LANG
-    export LSCOLORS=ExFxCxdxBxegedabagacad
-    export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-    zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
-    ;;
+    kterm*|xterm*)
+	export LSCOLORS=exfxcxdxbxegedabagacad
+	export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+	zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
+	;;
+    cons25)
+	unset LANG
+	export LSCOLORS=ExFxCxdxBxegedabagacad
+	export LS_COLORS='di=01;34:ln=01;35:so=01;32:ex=01;31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+	zstyle ':completion:*' list-colors 'di=;34;1' 'ln=;35;1' 'so=;32;1' 'ex=31;1' 'bd=46;34' 'cd=43;34'
+	;;
 esac
 export LANG=ja_JP.UTF-8
 
@@ -84,3 +84,18 @@ alias du="du -h"
 alias df="df -h"
 
 alias su="su -l"
+
+alias emacsclient="/bin/emacsclient"
+
+export CATALINA_HOME=/usr/share/tomcat7
+
+# OPAM configuration
+. /home/inamura/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+#virtualenv python
+export PIP_DOWNLOAD_CACHE=$HOME/.pip
+export PIP_SRC=$PIP_DOWNLOAD_CACHE
+export PIP_RESPECT_VIRTUALENV=true
+
+#rvm ruby
+source /usr/local/rvm/scripts/rvm

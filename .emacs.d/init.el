@@ -46,12 +46,12 @@
 ;; mkdir these preveously
 ;;;check priority(& hidden dirs) by  M-x list-load-path-shadows
 (add-to-load-path
+ "auto-install"
+ "el-get/el-get"
  "elisp"
  "elpa"
- "auto-install"
- "config"
  "submodules"
- "el-get/el-get"
+ "dummy"
  )
 ;; (require 'info)
 ;; (add-to-list 'Info-additional-directory-list "info")
@@ -73,10 +73,10 @@
              (expand-file-name (concat user-emacs-directory "recipes")))
 ;;; access to github via https(considering proxy env.)
 (setq el-get-github-default-url-type 'https)
-
+;; need mercurial to install yatex
 (setq my-packages
       (append
-       '(el-get helm switch-window vkill nxhtml xcscope yasnippet)
+       '(el-get helm switch-window vkill nxhtml xcscope yasnippet yatex)
        (mapcar 'el-get-source-name el-get-sources)))
 (el-get 'sync my-packages)
 ;cmigemo https://github.com/koron/cmigemo
@@ -108,16 +108,22 @@
     clojure-mode
     color-moccur
     color-theme
+;    csv-mode
+;    csv-nav-mode
     cursor-chg
+    dash
     dropdown-list ;for yasnippet
     ess
     ediprolog
     fill-column-indicator ;http://www.emacswiki.org/emacs/FillColumnIndicator
+    flymake
     fold-dwim
     ggtags
     goto-chg
+    haskell-mode
     highlight-indentation ;http://www.emacswiki.org/emacs/HighlightIndentation
     highlight-symbol ;http://www.emacswiki.org/emacs/HighlightSymbol
+    lua-mode
     markdown-mode ;http://moonstruckdrops.github.io/blog/2013/03/24/markdown-mode/
     migemo
     nrepl
@@ -165,7 +171,7 @@
 ;;copy SKK-JISYO.L in "dic" directory, then make install
 ;;then skk-setup.el is loaded automatically
 ;(require 'skk-autoloads)
-;(global-set-key "\C-x\C-j" 'skk-mode)
+;(global-set-key "\C-xj" 'skk-mode)
 ;(global-set-key "\C-xj" 'skk-auto-fill-mode)
 ;; -----------------------------------------------------------
 ;;;micellenious settings--------------------------------------
@@ -242,6 +248,11 @@
 ;;fill-column-indicator
 ;; fci-mode
 (require 'fill-column-indicator)
+;;; clipboard
+(global-set-key [(shift delete)] 'clipboard-kill-region)
+(global-set-key [(control insert)] 'clipboard-kill-ring-save)
+(global-set-key [(shift insert)] 'clipboard-yank)
+
 ;; -----------------------------------------------------------
 ;;;sequential-command
 ;;extend the function of C-a, C-e
@@ -490,7 +501,7 @@
                css-mode-hook
                apples-mode-hook))
       (add-hook hook 'hs-minor-mode))))
-(define-key global-map (kbd "C-#") 'fold-dwim-toggle)
+(define-key global-map (kbd "C-;") 'fold-dwim-toggle)
 ;; -----------------------------------------------------------
 ;;M-x which-func-mode
 ;;always show current func name
@@ -518,7 +529,6 @@
  '(shell-pop-universal-key "C-'")
  '(shell-pop-window-height 60)
  '(shell-pop-window-position "bottom"))
-
 ;; -----------------------------------------------------------
 ;; pair input
 (defun insert-bracket-pair (leftBracket rightBracket)
@@ -546,6 +556,68 @@
 (define-key global-map "[" 'insert-pair-bracket)
 (define-key global-map "<" 'insert-pair-angle-bracket)
 ;; -----------------------------------------------------------
+;;flymake
+;;http://moimoitei.blogspot.jp/2010/05/flymake-in-emacs.html
+(require 'flymake)
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+(setq flymake-gui-warnings-enabled nil)
+(global-set-key "\M-p" 'flymake-goto-prev-error)
+(global-set-key "\M-n" 'flymake-goto-next-error)
+;; 警告エラー行の表示
+(global-set-key "\C-cf" 'flymake-display-err-menu-for-current-line)
+;; popup.el を使って tip として表示
+(defun my-flymake-display-err-popup.el-for-current-line ()
+  "Display a menu with errors/warnings for current line if it has errors and/or warnings."
+  (interactive)
+  (let* ((line-no            (flymake-current-line-no))
+         (line-err-info-list (nth 0 (flymake-find-err-info flymake-err-info line-no)))
+         (menu-data          (flymake-make-err-menu-data line-no line-err-info-list)))
+    (if menu-data
+      (popup-tip (mapconcat (lambda (e) (nth 0 e))
+                            (nth 1 menu-data)
+                            "\n")))))
+(defun flymake-simple-generic-init (cmd &optional opts)
+  (let* ((temp-file  (flymake-init-create-temp-buffer-copy
+                      'flymake-create-temp-inplace))
+         (local-file (file-relative-name
+                      temp-file
+                      (file-name-directory buffer-file-name))))
+    (list cmd (append opts (list local-file)))))
+;; Makefile が無くてもC/C++のチェック
+(defun flymake-simple-make-or-generic-init (cmd &optional opts)
+  (if (file-exists-p "Makefile")
+      (flymake-simple-make-init)
+    (flymake-simple-generic-init cmd opts)))
+(defun flymake-c-init ()
+  (flymake-simple-make-or-generic-init
+   "gcc" '("-Wall" "-Wextra" "-pedantic" "-fsyntax-only")))
+(defun flymake-cc-init ()
+  (flymake-simple-make-or-generic-init
+   "g++" '("-Wall" "-Wextra" "-pedantic" "-fsyntax-only")))
+(push '("\\.[cC]\\'" flymake-c-init) flymake-allowed-file-name-masks)
+(push '("\\.\\(?:cc\|cpp\|CC\|CPP\\)\\'" flymake-cc-init) flymake-allowed-file-name-masks)
+;; flymake を使えない場合をチェック
+(defadvice flymake-can-syntax-check-file
+  (after my-flymake-can-syntax-check-file activate)
+  (cond
+   ((not ad-return-value))
+   ;; tramp 経由であれば、無効
+   ((and (fboundp 'tramp-list-remote-buffers)
+         (memq (current-buffer) (tramp-list-remote-buffers)))
+    (setq ad-return-value nil))
+   ;; 書き込み不可ならば、flymakeは無効
+   ((not (file-writable-p buffer-file-name))
+    (setq ad-return-value nil))
+   ;; flymake で使われるコマンドが無ければ無効
+   ((let ((cmd (nth 0 (prog1
+                          (funcall (flymake-get-init-function buffer-file-name))
+                        (funcall (flymake-get-cleanup-function buffer-file-name))))))
+      (and cmd (not (executable-find cmd))))
+    (setq ad-return-value nil))))
+(defun flymake-get-tex-args (file-name)
+  (list "pdflatex"
+        (list "-file-line-error" "-draftmode" "-interaction=nonstopmode" file-name)))
+
 ;;;C
 ;;gdb
 (setq gdb-many-windows t)
@@ -556,7 +628,7 @@
 	    (define-key c-mode-base-map "\C-c\M-c" 'uncomment-region)
 	    (define-key c-mode-base-map "\C-cc" 'compile)
 	    (define-key c-mode-base-map "\C-ce" 'next-error)
-	    (define-key c-mode-base-map "\C-cd" 'gdb)
+p	    (define-key c-mode-base-map "\C-cd" 'gdb)
 	    (define-key c-mode-base-map "\C-ct" 'toggle-source)
 	    ))
 ;;auto-indentation
@@ -618,10 +690,94 @@
 ;;;OCaml
 ;;tuareg-mode
 ;;C-c C-e:eval
-(add-to-list 'auto-mode-alist '("\\.ml[iylp]?" . tuareg-mode))
-(autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
-(autoload 'tuareg-run-ocaml "tuareg" "Run an inferior OCaml process." t)
-(autoload 'ocamldebug "ocamldebug" "Run the OCaml debugger" t)
+;; (autoload 'tuareg-mode "tuareg" "Major mode for editing OCaml code" t)
+;; (autoload 'tuareg-run-ocaml "tuareg" "Run an inferior OCaml process." t)
+;; (autoload 'ocamldebug "ocamldebug" "Run the OCaml debugger" t)
+;; -- Tuareg mode -----------------------------------------
+;; Add Tuareg to your search path
+;; set tuareg installation directory
+;; (add-to-list 'load-path
+;;  (expand-file-name "~/.emacs.d/elpa/tuareg-20131019.848"))
+(require 'tuareg)
+(setq auto-mode-alist 
+      (append '(("\\.ml[ilyp]?$" . tuareg-mode))
+	      auto-mode-alist))
+;; -- Tweaks for OS X -------------------------------------
+;; Tweak for problem on OS X where Emacs.app doesn't run the right
+;; init scripts when invoking a sub-shell
+(cond
+ ((eq window-system 'ns) ; macosx
+  ;; Invoke login shells, so that .profile or .bash_profile is read
+  (setq shell-command-switch "-lc")))
+
+;; -- opam and utop setup --------------------------------
+;; Setup environment variables using opam
+(defun opam-vars ()
+  (let* ((x (shell-command-to-string "opam config env"))
+	 (x (split-string x "\n"))
+	 (x (remove-if (lambda (x) (equal x "")) x))
+	 (x (mapcar (lambda (x) (split-string x ";")) x))
+	 (x (mapcar (lambda (x) (car x)) x))
+	 (x (mapcar (lambda (x) (split-string x "=")) x))
+	 )
+    x))
+(dolist (var (opam-vars))
+  (setenv (car var) (substring (cadr var) 1 -1)))
+;; The following simpler alternative works as of opam 1.1
+;; (dolist
+;;    (var (car (read-from-string
+;; 	       (shell-command-to-string "opam config env --sexp"))))
+;;  (setenv (car var) (cadr var)))
+;; Update the emacs path
+(setq exec-path (split-string (getenv "PATH") path-separator))
+;; Update the emacs load path
+(push (concat (getenv "OCAML_TOPLEVEL_PATH")
+	      "/../../share/emacs/site-lisp") load-path)
+;; Automatically load utop.el
+(autoload 'utop "utop" "Toplevel for OCaml" t)
+(autoload 'utop-setup-ocaml-buffer "utop" "Toplevel for OCaml" t)
+(add-hook 'tuareg-mode-hook 'utop-setup-ocaml-buffer)
+
+;; -- merlin setup ---------------------------------------
+(setq opam-share (substring (shell-command-to-string "opam config var share") 0 -1))
+(add-to-list 'load-path (concat opam-share "/emacs/site-lisp"))
+(require 'merlin)
+;; Enable Merlin for ML buffers
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+;; So you can do it on a mac, where `C-<up>` and `C-<down>` are used
+;; by spaces.
+(define-key merlin-mode-map
+  (kbd "C-c <up>") 'merlin-type-enclosing-go-up)
+(define-key merlin-mode-map
+  (kbd "C-c <down>") 'merlin-type-enclosing-go-down)
+(set-face-background 'merlin-type-face "#88FF44")
+;; -- enable auto-complete -------------------------------
+;; Not required, but useful along with merlin-mode
+(require 'auto-complete)
+(add-hook 'tuareg-mode-hook 'auto-complete-mode)
+
+;; -- ocp-indent -----------------------------------------
+;; (add-to-list 'load-path (concat
+;;     (replace-regexp-in-string "\n$" ""
+;;         (shell-command-to-string "opam config var share"))
+;;     "/emacs/site-lisp"))
+(setq opam-share (substring (shell-command-to-string "opam config var share") 0 -1))
+(load-file (concat opam-share "/typerex/ocp-indent/ocp-indent.el"))
+(require 'ocp-indent)
+;; -----------------------------------------------------------
+;;;Haskell
+;; http://haskell.github.io/haskell-mode/manual/latest/
+;; http://d.hatena.ne.jp/kitokitoki/20111217/p1
+;;(require 'haskell-mode)
+;;(require 'haskell-cabal)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
+;;(add-hook 'haskell-mode-hook 'turn-on-haskell-simple-indent)
+;; (add-to-list 'auto-mode-alist '("\\.hs$" . haskell-mode))
+;; (add-to-list 'auto-mode-alist '("\\.lhs$" . literate-haskell-mode))
+;; (add-to-list 'auto-mode-alist '("\\.cabal\\'" . haskell-cabal-mode))
+
 ;; -----------------------------------------------------------
 ;;;Prolog
 (setq auto-mode-alist
@@ -658,6 +814,11 @@
       '("script" "style" "table"
 	;;rss setting
       "description" "content" ))
+;; -----------------------------------------------------------
+;;;csv
+(add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+(autoload 'csv-mode "csv-mode"
+  "Major mode for editing comma-separated value files." t)
 ;; -----------------------------------------------------------
 ;;; YaTeX with TeX Live 2013
 ;; https://github.com/emacsmirror/yatex
