@@ -23,7 +23,7 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
 bindkey "^N" history-beginning-search-forward-end 
 
-# Use modern completion system
+# Use modern completion system(compsys)
 autoload -Uz compinit
 compinit
 
@@ -36,19 +36,20 @@ setopt nolistbeep
 # setopt predict-on
 # predict-on
 
+zstyle ':completion:*' verbose true
 zstyle ':completion:*' auto-description 'specify: %d'
 zstyle ':completion:*' completer _expand _complete _correct _approximate
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' menu select=2
 eval "$(dircolors -b)"
+# color
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
 zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
 zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' verbose true
 
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
@@ -87,6 +88,10 @@ alias su="su -l"
 
 alias emacsclient="/bin/emacsclient"
 
+alias -g gp='| grep -i'
+alias -s log="less -MN"
+
+
 export CATALINA_HOME=/usr/share/tomcat7
 
 # OPAM configuration
@@ -96,6 +101,3 @@ export CATALINA_HOME=/usr/share/tomcat7
 export PIP_DOWNLOAD_CACHE=$HOME/.pip
 export PIP_SRC=$PIP_DOWNLOAD_CACHE
 export PIP_RESPECT_VIRTUALENV=true
-
-#rvm ruby
-source /usr/local/rvm/scripts/rvm
