@@ -1,9 +1,0 @@
-[submodule ".emacs.d/submodules/ddskk.git"]
-	path = .emacs.d/submodules/ddskk.git
-	url = https://github.com/hsaito/ddskk.git
-[submodule ".emacs.d/submodules/cmigemo.git"]
-	path = .emacs.d/submodules/cmigemo.git
-	url = https://github.com/koron/cmigemo.git
-[submodule ".emacs.d/submodules/html-fold.git"]
-	path = .emacs.d/submodules/html-fold.git
-	url = https://github.com/ataka/html-fold.git
