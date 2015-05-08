@@ -1,0 +1,1 @@
+../inits/haskell.el
