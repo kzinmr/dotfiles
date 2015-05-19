@@ -55,10 +55,10 @@
 (setq debug-on-error t)
 ;; -----------------------------------------------------------
 
-(bundle dash)
-(bundle s)
-(bundle f)
-
+(bundle! dash)
+(bundle! s)
+(bundle! f)
+(bundle! let-alist)
 ;; -----------------------------------------------------------
 ;; elpa installation
 ;;
@@ -81,4 +81,3 @@
 ;; -----------------------------------------------------------
 ;;ProofGeneral for Coq
 ;(load-file (concat (getenv "HOME") "/build/ProofGeneral/generic/proof-site.el"))
-

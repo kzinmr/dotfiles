@@ -1,4 +1,3 @@
-(require 'bundle)
 (bundle ess
   :features (ess-site ess-eldoc)
   (add-hook 'inferior-ess-mode-hook 'ess-use-eldoc))

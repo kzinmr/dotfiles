@@ -14,9 +14,8 @@
 ;; -- Tweaks for OS X -------------------------------------
 ;; Tweak for problem on OS X where Emacs.app doesn't run the right
 ;; init scripts when invoking a sub-shell
-(bundle tuareg
-  :features tuareg
-  (setq auto-mode-alist 
+(bundle! tuareg
+  (setq auto-mode-alist
         (append '(("\\.ml[ily]?$" . tuareg-mode))
                 auto-mode-alist))
   (add-hook 'tuareg-mode-hook 'auto-complete-mode))

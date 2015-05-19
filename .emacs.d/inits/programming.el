@@ -1,5 +1,4 @@
-(bundle auto-async-byte-compile
-  :features auto-async-byte-compile
+(bundle! auto-async-byte-compile
   ;;自動バイトコンパイルを無効にするファイル名の正規表現
   (setq auto-async-byte-compile-exclude-files-regexp "/junk/")
   (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
@@ -11,11 +10,10 @@
   ;; find-functionをキー割り当てする
   (find-function-setup-keys))
 
-(bundle ggtags
+;;apt-get install global
+(bundle! ggtags
   ;;M-x imenu(jump to function)
   ;;M-.
-  ;;install 'global'
-  :features ggtags
   (add-hook 'c-mode-common-hook
             (lambda ()
               (when (derived-mode-p
@@ -49,12 +47,16 @@
 (define-key global-map "[" 'insert-pair-bracket)
 (define-key global-map "<" 'insert-pair-angle-bracket)
 ;; -----------------------------------------------------------
-;;M-x which-func-mode
+;;M-x which-function-mode
 ;;always show current func name
-;;to change color andsoon M-x customize-group RET which-Func
+
 (which-function-mode 1)
-(delete (assoc 'which-function-mode mode-line-format) mode-line-format)
-(setq-default header-line-format (which-function-mode ("" which-function-format)))
+;To show the function in the HeaderLine instead of the ModeLine
+(setq mode-line-format
+      (delete (assoc 'which-func-mode
+		     mode-line-format) mode-line-format)
+      which-func-header-line-format
+      '(which-func-mode ("" which-func-format)))
 
 ;; git-gutter(use *-fringe to work with linum-mode)
 (bundle! git-gutter-fringe
@@ -78,3 +80,21 @@
                        (set (make-local-variable 'eldoc-idle-delay) 0.3)
                        (c-turn-on-eldoc-mode)))))
 (bundle eldoc-extension)
+
+;; C-;でカーソル位置の (またはリージョン指定した) シンボルを対象として同時編集モードに入る。
+;; M-hでマッチする範囲をカーソル位置の関数に限定。
+;; M-iでマッチする範囲をカーソル位置の行に限定。M-n,M-pで領域を上下に1行ずつ増やす。
+;; TAB,Shift-TABでマッチした箇所を巡回。巡回中にC-mで現在位置のマッチを解除。
+;; C-;で同時編集モード終了。
+(bundle! victorhge/iedit
+  (define-key global-map (kbd "C-c ;") 'iedit-mode))
+(define-key iedit-mode-keymap (kbd "C-m") 'iedit-toggle-selection)
+(define-key iedit-mode-keymap (kbd "M-p") 'iedit-expand-up-a-line)
+(define-key iedit-mode-keymap (kbd "M-n") 'iedit-expand-down-a-line)
+(define-key iedit-mode-keymap (kbd "M-h") 'iedit-restrict-function)
+(define-key iedit-mode-keymap (kbd "M-i") 'iedit-restrict-current-line)
+(define-key iedit-mode-keymap (kbd "C-h") 'delete-backward-char)
+
+;; magit(http://magit.vc/)
+;; M-x magit-status(git status); TAB(diff); s(add); c(commit); P(push)
+(bundle! magit)

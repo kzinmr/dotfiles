@@ -10,14 +10,13 @@
   (when (one-window-p) (split-window-horizontally))
   (other-window 1))
 (global-set-key "\C-t" 'other-window-or-split)
-(global-set-key "\C-c;" 'comment-or-uncomment-region)
+(global-set-key "\C-c /" 'comment-or-uncomment-region)
 (global-set-key "\C-c\C-u" 'dired-jump)
 (global-set-key "\C-c\C-d" 'delete-region)
 (global-set-key "\C-c\C-h" 'help-command)
 (global-set-key "\C-c\C-v" 'describe-variable)
 ;; -----------------------------------------------------------
-(bundle sequential-command
-  :features sequential-command
+(bundle! sequential-command
   (define-sequential-command seq-home
     beginning-of-line beginning-of-buffer seq-return)
   (define-sequential-command seq-end

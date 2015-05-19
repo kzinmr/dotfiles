@@ -1,10 +1,8 @@
 ;;;buffer&file------------------------------------------------
-(bundle auto-save-buffers-enhanced
-  :features auto-save-buffers-enhanced
+(bundle! auto-save-buffers-enhanced
   (setq auto-save-buffers-enhanced-interval 1)
   (auto-save-buffers-enhanced t))
-(bundle bm
-  :features bm
+(bundle! bm
   (setq-default bm-buffer-persistence nil)
   (setq bm-restore-repository-on-load t)
   (global-set-key "\M-@" 'bm-toggle)
@@ -15,8 +13,7 @@
   (add-hook 'after-save-hook 'bm-buffer-save)
   (add-hook 'after-revert-hook 'bm-buffer-restore)
   (add-hook 'vc-vefore-checkin-hook 'bm-buffer-save))
-(bundle goto-chg
-  :features goto-chg
+(bundle! goto-chg
   (global-set-key [f8] 'goto-last-change)
   (global-set-key [S-f8] 'goto-last-change-reverse))
 
@@ -46,6 +43,9 @@
 ;;dont ask when making new buffer
 (setq iswitchb-prompt-newbuffer- nil)
 ;;;ido:use iswitchb completion with file-open
+;; Automatically reload files was modified by external program
+(global-auto-revert-mode 1)
+
 ;(ido-mode 1)
 
 ;;;save the input of minibuffer in history evenif its cancelled
@@ -72,3 +72,12 @@
 (global-set-key "\C-x\C-c" 'server-edit)
 ;;finish Emacs with M-x exit not C-x C-c
 (defalias 'exit 'save-buffers-kill-emacs)
+
+;;swap buffers
+(bundle! swap-buffers
+  (defun swap-buffers-keep-focus ()
+    (interactive)
+    (swap-buffers t))
+  ;;; swap-screenに倣ってf2/S-f2に割り当てる
+  (global-set-key [f2] 'swap-buffers-keep-focus)
+  (global-set-key [S-f2] 'swap-buffers))

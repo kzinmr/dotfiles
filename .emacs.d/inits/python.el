@@ -1,61 +1,42 @@
 ;;;Python
+(setenv "PYTHONPATH" "/usr/bin/python")
 (add-hook 'python-mode-hook
                    '(lambda ()
                         (setq indent-tabs-mode nil)
                         (setq indent-level 4)
                         (setq python-indent 4)
                         (setq tab-width 4)))
-(bundle! pymacs)
-;; (bundle! ropemacs)
-;; (eval-after-load 'auto-complete-config
-;;   '(progn
-;;      (ac-config-default)
-;;      (when (file-exists-p (expand-file-name "~/.emacs.d/el-get/pymacs"))
-;;        (ac-ropemacs-initialize)
-;;        (ac-ropemacs-setup))))
-;; (eval-after-load 'auto-complete-autoloads
-;;   '(progn
-;;      (autoload 'auto-complete-mode "auto-complete" "enable auto-complete-mode" t nil)
-;;      (add-hook 'python-mode-hook
-;; 	       (lambda ()
-;; 		 (require 'auto-complete-config)
-;; 		 (add-to-list 'ac-sources 'ac-source-ropemacs)
-;; 		 (auto-complete-mode)))))
 
 (define-key global-map
   "\C-cp" 'run-python)
 
-(add-hook 'python-mode-hook
-	  (lambda ()
-	    (define-key python-mode-map (kbd "\C-m") 'newline-and-indent)
-            (define-key python-mode-map (kbd "RET") 'newline-and-indent)))
-;pip install autopep8
-(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
-;pip install --user rope jedi flake8
+;; Another python mode options:
+;; https://github.com/python-rope/ropemacs
+;; https://github.com/proofit404/anaconda-mode
+
+;; Elpy.el
+;;Elpy does not use Pymacs, Ropemacs and Ropemode anymore,
+;;but instead provides its own Python interface with the elpy package on PyPI.
+;pip install --user rope jedi flake8 (importmagic)
+; Inline code completion (company-mode)
+; Show function signatures (ElDoc)
+; Syntax Error Highlighting and PEP8 Highlighting (Flymake)
+; Display indentation markers (highlight-indentation)
+; Show the virtualenv in the mode line (pyvenv)
+; Expand code snippets (YASnippet)
+; Auto-complete is brought in by jedi and rope.
+; Simultaneous Editing is brought in by iedit.el.
+; Code block shifting: C-c > or C-c <
+; Automatic import is brought in by importmagic (disabled dueto error)
 (bundle elpy
   (elpy-enable))
+;; Fixing a key binding bug in elpy
+(define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
+;; Fixing another key binding bug in iedit mode
+(define-key global-map (kbd "C-c o") 'iedit-mode)
+;; use flycheck insteadof flymake
+(when (require 'flycheck nil t)
+  (remove-hook 'elpy-modules 'elpy-module-flymake))
 
-;pip install --user pyflakes
-; flycheck 
-;; (bundle flymake)
-;; (bundle flymake-cursor)
-;; (bundle flymake-easy)
-;; (bundle flymake-python-pyflakes)
-
-(require 'tramp-cmds)
-(when (load "flymake" t)
-  (defun flymake-pyflakes-init ()
-     ; Make sure it's not a remote buffer or flymake would not work
-     (when (not (subsetp (list (current-buffer)) (tramp-list-remote-buffers)))
-      (let* ((temp-file (flymake-init-create-temp-buffer-copy ;not known
-                         'flymake-create-temp-inplace))
-             (local-file (file-relative-name
-                          temp-file
-                          (file-name-directory buffer-file-name))))
-        (list "pyflakes" (list local-file)))))
-  (add-to-list 'flymake-allowed-file-name-masks
-               '("\\.py\\'" flymake-pyflakes-init)))
- 
-(add-hook 'python-mode-hook
-          (lambda ()
-            (flycheck-mode t)))
+;pip install autopep8
+(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)

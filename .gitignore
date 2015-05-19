@@ -11,3 +11,5 @@
 !/.zshrc
 !/.gitconfig
 !/.gitignore
+!/.xmodmap
+!/.tmux.conf

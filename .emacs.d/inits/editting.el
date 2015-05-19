@@ -1,5 +1,4 @@
-(bundle migemo
-  :features migemo
+(bundle! migemo
   (setq migemo-command "cmigemo")
   (setq migemo-options '("-q" "--emacs"))
   ;; Set your installed path
@@ -9,16 +8,13 @@
   (setq migemo-coding-system 'utf-8-unix)
   (load-library "migemo")
   (migemo-init))
-(bundle color-moccur
-  :features color-moccur
+(bundle! color-moccur
   (define-key global-map (kbd "M-o") 'occur-by-moccur)
   (setq moccur-split-word t)
   (add-to-list 'dmoccur-exclusion-mask "\\.DS_Store")
   (add-to-list 'dmoccur-exclusion-mask "^#.+#$"))
-(bundle moccur-edit
-  :features moccur-edit)
-(bundle multiple-cursors
-  :features multiple-cursors
+(bundle! moccur-edit)
+(bundle! multiple-cursors
   (defun mc/edit-lines-or-string-rectangle (s e)
     "C-x r tで同じ桁の場合にmc/edit-lines (C-u M-x mc/mark-all-dwim)"
     (interactive "r")
@@ -36,35 +32,39 @@
       (1 (mark-sexp 1))))
   (global-set-key (kbd "C-M-SPC") 'mc/mark-all-dwim-or-mark-sexp))
 
-(bundle open-junk-file
+;; fold-dwim for hide-show to be toggled
+;;(folding.el, outline.el, TeX-fold.el, and nxml-outln.el supported)
+(bundle! fold-dwim
+  (add-hook 'c-mode-common-hook 'hs-minor-mode)
+  (add-hook 'python-mode-hook 'hs-minor-mode))
+(eval-after-load 'fold-dwim
+  '(progn
+     (define-key global-map (kbd "C-:") 'fold-dwim-toggle)))
+
+
+(bundle! open-junk-file
 ;;;試行錯誤用ファイルを開くための設定
-  :features open-junk-file
   (global-set-key (kbd "C-x C-z") 'open-junk-file))
 
-(bundle point-undo
-  :features point-undo
+(bundle! point-undo
   (define-key global-map [f7] 'point-undo)
   (define-key global-map [S-f7] 'point-redo))
 
-(bundle recentf-ext
-  :features recentf-ext
+(bundle! recentf-ext
   (setq recentf-max-saved-items 1000)
   (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
   (global-set-key "\C-z" 'recentf-open-files))
 
-(bundle redo+
-  :features redo+
+(bundle! redo+
   (global-set-key (kbd "C-M-/") 'redo)
   (setq undo-no-redo t)
   (setq undo-limit 600000)
   (setq undo-strong-limit 900000))
 
-(bundle undo-tree
-  :features undo-tree
+(bundle! undo-tree
   (global-undo-tree-mode))
 
-(bundle visual-regexp-steroids
-  :features visual-regexp-steroids
+(bundle! visual-regexp-steroids
   (setq vr/engine 'python)
   ;; (setq vr/engine 'pcre2el) ;elispでPCREから変換
   (global-set-key (kbd "M-%") 'vr/query-replace)
@@ -74,27 +74,25 @@
   (global-set-key (kbd "C-M-r") 'vr/isearch-backward)
   (global-set-key (kbd "C-M-s") 'vr/isearch-forward))
 
-
-(bundle simplenote
-  :features simplenote
-  (setq simplenote-email "inatchenator@gmail.com")
-  (setq simplenote-password nil)
-  (simplenote-setup))
-
 ;; -----------------------------------------------------------
 ;;ddskk
-;;https://github.com/hsaito/ddskk
-;;in installing, add this to SKK-CFG in ddskk-*, & check "make what-where"
-;; (setq SKK_DATADIR "/skk")
-;; (setq SKK_INFODIR "share/info")
-;; (setq SKK_LISPDIR "elisp/skk")
-;; (setq SKK_SET_JISYO t)
-;;copy SKK-JISYO.L in "dic" directory, then make install
-;;then skk-setup.el is loaded automatically
-(require 'skk-autoloads)
-;; (global-set-key "\C-xj" 'skk-mode)
-;; (global-set-key "\C-xj" 'skk-auto-fill-mode)
-(setq skk-kutouten-type 'en)
+;;dictionary: http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
+;;辞書などの諸設定は skk-init-file(~/.skk) で定義
+(bundle skk-dev/ddskk
+  :features (skk skk-study)
+  (global-set-key (kbd "C-x j") 'skk-mode)
+  (setq default-input-method "japanese-skk")
+)
+;; 句読点を「、。」と「，．」で toggle
+(defun toggle-skk-kutouten-type nil
+  (interactive)
+  (cond
+   ((equal skk-kutouten-type 'en)
+    (setq-default skk-kutouten-type 'jp))
+   ((equal skk-kutouten-type 'jp)
+    (setq-default skk-kutouten-type 'en))
+   ((t nil))))
+(global-set-key (kbd "<f5>") 'toggle-skk-kutouten-type)
 ;; -----------------------------------------------------------
 ;;;dired
 (setq dired-recursive-copies 'alway)

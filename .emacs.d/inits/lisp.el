@@ -1,13 +1,11 @@
 (require 'bundle)
 ;;;式の評価結果を注釈するための設定
-(bundle lispxmp
-  :features lispxmp)
+(bundle! lispxmp)
 (eval-after-load 'lispxmp
   '(progn
      (define-key emacs-lisp-mode-map (kbd "C-c C-d") 'lispxmp)))
 ;;;括弧の対応を保持して編集する設定
-(bundle paredit
-  :features paredit
+(bundle! paredit
   (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
   (add-hook 'lisp-mode-hook 'enable-paredit-mode)
@@ -23,8 +21,7 @@
      (cl-callf color-saturate-name (face-foreground face) 30)))
   (add-hook 'clojure-mode-hook 'rainbow-delimiters-mode)
   (add-hook 'nrepl-mode-hook 'rainbow-delimiters-mode))
-(bundle rainbow-mode
-  :features rainbow-mode)
+(bundle! rainbow-mode)
 
 ;; -----------------------------------------------------------
 ;;;Gauche
@@ -48,8 +45,7 @@
 ;;clojurer-mode.el, paredit.el, nrepl.el, rainbow-delimiters.el
 ;;http://matstani.github.io/blog/2013/04/19/clojure-dev-env-emacs/
 (bundle clojure-mode)
-(bundle cider
-  :features cider
+(bundle! cider
   (add-hook 'clojure-mode-hook 'cider-mode)
   ;; mini bufferに関数の引数を表示させる
   (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
