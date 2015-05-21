@@ -91,8 +91,11 @@ alias emacsclient="/bin/emacsclient"
 alias -g gp='| grep -i'
 alias -s log="less -MN"
 
-
-export CATALINA_HOME=/usr/share/tomcat7
+# for tmux in ubuntu
+# sudo apt-get install xsel
+alias pbcopy='xsel --clipboard --input'
+alias pbpaste='xsel --clipboard --output'
+alias tmux-copy='tmux save-buffer - | pbcopy'
 
 # OPAM configuration
 . /home/inamura/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
