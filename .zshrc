@@ -101,3 +101,9 @@ export CATALINA_HOME=/usr/share/tomcat7
 export PIP_DOWNLOAD_CACHE=$HOME/.pip
 export PIP_SRC=$PIP_DOWNLOAD_CACHE
 export PIP_RESPECT_VIRTUALENV=true
+
+export PATH=/share/usr-x86_64/bin:$PATH
+export LD_RUN_PATH=/share/usr-x86_64/lib:/share/usr-x86_64/lib64
+ulimit -m 10000000
+ulimit -v 10000000
+
