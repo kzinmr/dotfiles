@@ -86,8 +86,6 @@ alias df="df -h"
 
 alias su="su -l"
 
-alias emacsclient="/bin/emacsclient"
-
 alias -g gp='| grep -i'
 alias -s log="less -MN"
 
@@ -104,3 +102,17 @@ alias tmux-copy='tmux save-buffer - | pbcopy'
 export PIP_DOWNLOAD_CACHE=$HOME/.pip
 export PIP_SRC=$PIP_DOWNLOAD_CACHE
 export PIP_RESPECT_VIRTUALENV=true
+
+function fxg() {
+  find -name "$1" -print |xargs grep -inH "$2"
+}
+
+alias agi="sudo apt-get install"
+
+export PATH=/home/inamura/anaconda/bin:$PATH
+
+export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
+alias e='emacsclient -nw -a ""'
+alias emacs='emacsclient -nw -a ""'
+
+alias clang-format='clang-format-3.6'

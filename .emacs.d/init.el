@@ -31,7 +31,6 @@
 (setq-default el-get-emacswiki-base-url
   "http://raw.github.com/emacsmirror/emacswiki.org/master/")
 (add-to-list 'load-path (locate-user-emacs-file "el-get/bundle"))
-(require 'bundle)
 (unless (require 'bundle nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously
@@ -60,6 +59,8 @@
 (bundle! f)
 (bundle! let-alist)
 ;; -----------------------------------------------------------
+;; Emacs 24.4 or later
+(fset 'package-desc-vers 'package--ac-desc-version)
 ;; elpa installation
 ;;
 ;; (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
