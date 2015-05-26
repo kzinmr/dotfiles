@@ -54,12 +54,12 @@
     (add-to-history minibuffer-history-variable (minibuffer-contents))))
 
 ;; -----------------------------------------------------------
-;;;uniquify
-(require 'uniquify)
+;;;uniquify(default for 24.4.<
+;(require 'uniquify)
 ;;filename<dir>
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+;(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 ;;*filename* is excepted
-(setq uniquify-ignore-buffers-re "*[^*]+*")
+;(setq uniquify-ignore-buffers-re "*[^*]+*")
 ;; -----------------------------------------------------------
 ;;;emacsclient:dont restart Emacs when editing files from an external program
 ;;emacsclient filename (external program)

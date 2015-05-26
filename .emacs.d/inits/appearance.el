@@ -65,14 +65,14 @@
 ;; visualize whitespace
 (eval-after-load 'whitespace
   '(progn
-     (setq whitespace-global-modes '(not)
-	   whitespace-style '(face
-			      tabs
-			      tab-mark
-			      fw-space-mark
-			      lines-tail
-			      trailing
-			      empty))
+     (setq whitespace-global-modes '(not) whitespace-style
+           '(face
+             tabs
+             tab-mark
+             fw-space-mark
+             lines-tail
+             trailing
+             empty))
      ;; tab
      (setcar (nthcdr 2 (assq 'tab-mark whitespace-display-mappings)) [?> ?\t])
      (let ((face 'whitespace-tab))
@@ -81,23 +81,23 @@
      ;; full-width space
      (defface full-width-space
        '((((class color) (background light)) (:foreground "azure3"))
-	 (((class color) (background dark)) (:foreground "pink4")))
+         (((class color) (background dark)) (:foreground "pink4")))
        "Face for full-width space"
        :group 'whitespace)
      (let ((fw-space-mark (make-glyph-code #x25a1 'full-width-space)))
        (add-to-list 'whitespace-display-mappings
-		    `(fw-space-mark ? ,(vector fw-space-mark))))
+                    `(fw-space-mark ? ,(vector fw-space-mark))))
      (setq whitespace-display-mappings
-	   '((space-mark ?\u3000 [?\u25a1])
-	     ;; WARNING: the mapping below has a problem.
-	     ;; When a TAB occupies exactly one column, it will display the
-	     ;; character ?\xBB at that column followed by a TAB which goes to
-	     ;; the next TAB column.
-	     ;; If this is a problem for you, please, comment the line below.
-	     (tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])))
+           '((space-mark ?\u3000 [?\u25a1])
+             ;; WARNING: the mapping below has a problem.
+             ;; When a TAB occupies exactly one column, it will display the
+             ;; character ?\xBB at that column followed by a TAB which goes to
+             ;; the next TAB column.
+             ;; If this is a problem for you, please, comment the line below.
+             (tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])))
      ;; スペースは全角のみを可視化
      (setq whitespace-space-regexp "\\(\u3000+\\)")
-))
+     ))
 ;; patch
 (defsubst whitespace-char-or-glyph-code-valid-p (char)
   (let ((char (if (consp char) (car char) char)))

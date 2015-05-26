@@ -2,7 +2,6 @@
 ;;;org-mode
 ;;M-x org-insert-heading-dwim
 ;;C-RET, C-u C-RET, C-u C-u C-RET
-(require 'bundle)
 (bundle org
   :features (org org-install ob)
 )

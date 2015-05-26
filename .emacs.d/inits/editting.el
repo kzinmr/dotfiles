@@ -1,3 +1,4 @@
+;install cmigemo?
 (bundle! migemo
   (setq migemo-command "cmigemo")
   (setq migemo-options '("-q" "--emacs"))
@@ -73,26 +74,6 @@
   ;; 普段の正規表現isearchにも使いたいならこれを
   (global-set-key (kbd "C-M-r") 'vr/isearch-backward)
   (global-set-key (kbd "C-M-s") 'vr/isearch-forward))
-
-;; -----------------------------------------------------------
-;;ddskk
-;;dictionary: http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
-;;辞書などの諸設定は skk-init-file(~/.skk) で定義
-(bundle skk-dev/ddskk
-  :features (skk skk-study)
-  (global-set-key (kbd "C-x j") 'skk-mode)
-  (setq default-input-method "japanese-skk")
-)
-;; 句読点を「、。」と「，．」で toggle
-(defun toggle-skk-kutouten-type nil
-  (interactive)
-  (cond
-   ((equal skk-kutouten-type 'en)
-    (setq-default skk-kutouten-type 'jp))
-   ((equal skk-kutouten-type 'jp)
-    (setq-default skk-kutouten-type 'en))
-   ((t nil))))
-(global-set-key (kbd "<f5>") 'toggle-skk-kutouten-type)
 ;; -----------------------------------------------------------
 ;;;dired
 (setq dired-recursive-copies 'alway)
@@ -112,8 +93,9 @@
 ;; input support----------------------------------------------
 ;;;cua-mode
 ;;C-Enter(rectangle region)
-(cua-mode t)
-(setq cua-enable-cua-keys nil)
+;(global-set-key (kbd "C-x SPC") 'cua-rectangle-mark-mode)
+;(cua-mode t)
+;(setq cua-enable-cua-keys nil)
 ;; -----------------------------------------------------------
 ;;;M-x kmacro-save
 (defvar kmacro-save-file "~/.emacs.d/init.el")
@@ -124,3 +106,24 @@
     (goto-char (point-max)) ;goto the end of .emacs
     (insert-kbd-macro symbol)
     (basic-save-buffer)))
+;; -----------------------------------------------------------
+;;ddskk
+;;dictionary: http://openlab.jp/skk/wiki/wiki.cgi?page=SKK%BC%AD%BD%F1
+;;辞書などの諸設定は skk-init-file(~/.skk) で定義
+;; (bundle skk-dev/ddskk
+;;   :features (skk skk-study)
+;;   (global-set-key (kbd "C-x j") 'skk-mode)
+;;   (setq default-input-method "japanese-skk"))
+;; ;; 句読点を「、。」と「，．」で toggle
+  (global-set-key (kbd "C-x j") 'skk-mode)
+  (setq default-input-method "japanese-skk")
+
+(defun toggle-skk-kutouten-type nil
+  (interactive)
+  (cond
+   ((equal skk-kutouten-type 'en)
+    (setq-default skk-kutouten-type 'jp))
+   ((equal skk-kutouten-type 'jp)
+    (setq-default skk-kutouten-type 'en))
+   ((t nil))))
+(global-set-key (kbd "<f5>") 'toggle-skk-kutouten-type)

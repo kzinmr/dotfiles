@@ -86,8 +86,6 @@ alias df="df -h"
 
 alias su="su -l"
 
-alias emacsclient="/bin/emacsclient"
-
 alias -g gp='| grep -i'
 alias -s log="less -MN"
 
@@ -105,8 +103,24 @@ export PIP_DOWNLOAD_CACHE=$HOME/.pip
 export PIP_SRC=$PIP_DOWNLOAD_CACHE
 export PIP_RESPECT_VIRTUALENV=true
 
+#for server setting
 export PATH=/share/usr-x86_64/bin:$PATH
 export LD_RUN_PATH=/share/usr-x86_64/lib:/share/usr-x86_64/lib64
 ulimit -m 10000000
 ulimit -v 10000000
+
+
+function fxg() {
+  find -name "$1" -print |xargs grep -inH "$2"
+}
+
+#alias agi="sudo apt-get install"
+
+#export PATH=/home/inamura/anaconda/bin:$PATH
+
+export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
+alias e='emacsclient -nw -a ""'
+alias emacs='emacsclient -nw -a ""'
+
+alias clang-format='clang-format-3.6'
 

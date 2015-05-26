@@ -21,9 +21,9 @@
   (add-hook 'c++-mode-hook 'my:ac-c++-header-init))
 
 ;; Google's C/C++ style for c-mode
-(bundle! google-c-style
-  (add-hook 'c-mode-common-hook 'google-set-c-style)
-  (add-hook 'c-mode-common-hook 'google-make-newline-indent))
+;; (bundle! google-c-style
+;;   (add-hook 'c-mode-common-hook 'google-set-c-style)
+;;   (add-hook 'c-mode-common-hook 'google-make-newline-indent))
 ;; flymake-google-cpplint-load
 ;; https://github.com/flycheck/flycheck-google-cpplint
 ;; pip install cpplint
@@ -41,6 +41,11 @@
       '(flycheck-googlelint-root "project/src")
       '(flycheck-googlelint-linelength "120")
       )))
+
+;;clang-format
+(bundle! clang-format
+  (global-set-key "\C-c\C-f" 'clang-format-region))
+
 
 ;; Semantic in CEDET
 ;; canbe called by company-semantic(this requires clang installed)
