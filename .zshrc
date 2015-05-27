@@ -123,4 +123,6 @@ alias e='emacsclient -nw -a ""'
 alias emacs='emacsclient -nw -a ""'
 
 alias clang-format='clang-format-3.6'
+alias emacs='~/emacs-24.5/src/emacs'
 
+PATH=$HOME/gxp3:$PATH
