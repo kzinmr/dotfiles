@@ -18,8 +18,6 @@
  "el-get/el-get"
  "elisp"
  "elpa"
- "submodules"
- "dummy"
  )
 ;; (require 'info)
 ;; (add-to-list 'Info-additional-directory-list "info")
@@ -35,43 +33,51 @@
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (setq url-http-attempt-keepalives nil) ; To fix MELPA problem.
 
+;; not using bundle
 (defvar installing-package-list
   '(
-    ;; ここに使っているパッケージを書く。
-    ;el-get
+    ;;el-get
     auto-install
     init-loader
-    ;apprearance
-    ; auto-install-from-emacs-wiki fill-column-indicator
-    highlight-indentation
-    highlight-symbol
+    ;;apprearance
     yascroll
-    ;buffer
+    ;;buffer
     auto-save-buffer-enhanced
     bm
     goto-chg
+    ;;completion
     zlc
     helm
-    ;editting
-    migemo
-    color-moccur
-    ; auto-install-from-emacs-wiki moccur-edit
-    fold-dwim
+    ;;editting
     rainbow-mode
     open-junk-file
     point-undo
     recentf-ext
     redo+
     visual-regexp-steroids
-    ;programming
+    ;;lisp
     auto-async-byte-compile
-    ggtags
+    ;;programming
+    magit
     git-gutter-fringe
     flycheck
+    ggtags
     c-eldoc
     eldoc-extension
+    ;;search
+    migemo
+    color-moccur
+    ;; auto-install-from-emacs-wiki moccur-edit
     iedit
-    magit
+    ;;view
+    fold-dwim
+    ;; auto-install-from-emacs-wiki fill-column-indicator
+    highlight-indentation
+    highlight-symbol
+    ;;others
+    s
+    f
+    let-alist
     ))
 
 ;;; install missing packages
@@ -84,23 +90,21 @@
                  (dolist (package not-installed)
                    (package-install package))))))
 ;; -----------------------------------------------------------
-;; install auto-install
+; install auto-install
 (require 'auto-install)
 (add-to-list 'load-path "~/.emacs.d/auto-install")
-;; emacsの起動時にEmacsWikiからパッケージ名を取得する
 (auto-install-update-emacswiki-package-name t)
-;; 古いinstall-elisp.el互換モードに設定
+;; install-elisp.el互換モード
 (auto-install-compatibility-setup)
 
-;; install init-loader
+; install init-loader
 (require 'init-loader)
 (setq init-loader-show-log-after-init nil
       init-loader-byte-compile t)
 (init-loader-load "~/.emacs.d/init-loader")
-;;   hide compilation results
+;; hide compilation results
 (let ((win (get-buffer-window "*Compile-Log*")))
   (when win (delete-window win)))
-
 ;; -----------------------------------------------------------
 (require 'generic-x)
 ;; -----------------------------------------------------------
@@ -134,13 +138,3 @@
 ;;; access to github via https(considering proxy env.)
 ;; (setq el-get-github-default-url-type 'https)
 ;; (setq debug-on-error t)
-;; -----------------------------------------------------------
-
-;(bundle! dash)
-;(bundle! s)
-;(bundle! f)
-;(bundle! let-alist)
-
-;; -----------------------------------------------------------
-;;ProofGeneral for Coq
-;(load-file (concat (getenv "HOME") "/build/ProofGeneral/generic/proof-site.el"))
