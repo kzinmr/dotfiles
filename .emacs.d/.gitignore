@@ -40,3 +40,5 @@ abbrev_defs
 .skk-uim-jisyo
 .skk-uim-jisyo.lock
 *.L
+places
+recentf
