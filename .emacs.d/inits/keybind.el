@@ -1,5 +1,4 @@
-;;;micellenious settings--------------------------------------
-;;keybinds
+; keybinds
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\C-j" 'newline-and-indent)
 ;(global-set-key "\C-x\C-b" 'list-buffers)
@@ -16,14 +15,14 @@
 (global-set-key "\C-c\C-h" 'help-command)
 (global-set-key "\C-cv" 'describe-variable)
 (global-set-key "\C-cf" 'describe-function)
-;; -----------------------------------------------------------
-(bundle! sequential-command
-  (define-sequential-command seq-home
-    beginning-of-line beginning-of-buffer seq-return)
-  (define-sequential-command seq-end
-    end-of-line end-of-buffer seq-return)
-  (global-set-key "\C-a" 'seq-home)
-  (global-set-key "\C-e" 'seq-end))
+
+(require 'sequential-command)
+(define-sequential-command seq-home
+  beginning-of-line beginning-of-buffer seq-return)
+(define-sequential-command seq-end
+  end-of-line end-of-buffer seq-return)
+(global-set-key "\C-a" 'seq-home)
+(global-set-key "\C-e" 'seq-end)
 ;; (bundle mwim
 ;;   (global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
 ;;   (global-set-key (kbd "C-e") 'mwim-end-of-code-or-line))

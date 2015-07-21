@@ -1,3 +1,4 @@
+;;;
 ;; -*- mode: emacs-lisp; coding: utf-8; indent-tabs-mode: nil -*-
 ;; -----------------------------------------------------------
 ;; func for adding load-pathes recursively
@@ -19,8 +20,6 @@
  "elisp"
  "elpa"
  )
-;; (require 'info)
-;; (add-to-list 'Info-additional-directory-list "info")
 
 ;; -----------------------------------------------------------
 ;; Emacs 24.4 or later
@@ -45,9 +44,18 @@
     auto-save-buffer-enhanced
     bm
     goto-chg
+    swap-buffers
+    ace-jump-mode
     ;;completion
+    popup
     zlc
     helm
+    dropdown-list
+    yasnippet
+    ;;cpp
+    auto-complete-c-headers
+    flycheck/flycheck-google-cpplint
+    clang-format
     ;;editting
     rainbow-mode
     open-junk-file
@@ -56,17 +64,22 @@
     redo+
     visual-regexp-steroids
     ;;lisp
+    lispxmp
+    paredit
+    reinbow-delimiters
+    rainbow-mode
     auto-async-byte-compile
     ;;programming
     magit
     git-gutter-fringe
     flycheck
-    ggtags
     c-eldoc
     eldoc-extension
+    ggtags
     ;;search
     migemo
     color-moccur
+    iedit
     ;; auto-install-from-emacs-wiki moccur-edit
     iedit
     ;;view
@@ -74,6 +87,8 @@
     ;; auto-install-from-emacs-wiki fill-column-indicator
     highlight-indentation
     highlight-symbol
+    ;;keybind
+    sequential-command
     ;;others
     s
     f

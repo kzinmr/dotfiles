@@ -1,4 +1,4 @@
-;;; YaTeX with TeX Live 2013
+; YaTeX with TeX Live 2013
 ;; https://github.com/emacsmirror/yatex
 ;; C-c t j (platex)
 ;; C-c t p (xdvi)
@@ -16,12 +16,18 @@
       YaTeX-create-file-prefix-g t ;[prefix] g で相手のファイルがなかったら新規作成
 ;      YaTeX-template-file (expand-file-name "~/Dropbox/work/tex/template/template.tex") ;新規ファイル作成時に自動挿入されるファイル名
 )
+
+;; set anto newlining off
+(add-hook 'yatex-mode-hook
+'(lambda () (auto-fill-mode -1)))
+
 ;;for skk
 (add-hook 'skk-mode-hook
   (lambda () (if (eq major-mode 'yatex-mode)
 		 (progn
 		   (define-key skk-j-mode-map "\\" 'self-insert-command)
 		   (define-key skk-j-mode-map "$" 'YaTeX-insert-dollar)))))
+
 ;;http://oku.edu.mie-u.ac.jp/~okumura/texwiki/?YaTeX
 (setq auto-mode-alist
       (append '(("\\.tex$" . yatex-mode)
@@ -47,21 +53,16 @@
                               ((string-match "lualatex\\|luajitlatex\\|xelatex" tex-command) "texindy")
                               ((string-match "pdflatex\\|latex" tex-command) "makeindex")
                               (t "mendex")))
-; use zathula
-(setq dvi2-command "zathura -s -x \"emacsclient --no-wait +%{line} %{input}\"")
 (setq dviprint-command-format "acroread `echo %s | sed -e \"s/\\.[^.]*$/\\.pdf/\"`")
-(add-hook 'yatex-mode-hook
-          '(lambda ()
-             (auto-fill-mode -1)))
-;;
-;; RefTeX with YaTeX
-;;
-;(add-hook 'yatex-mode-hook 'turn-on-reftex)
+
+; RefTeX with YaTeX
+;; (add-hook 'yatex-mode-hook 'turn-on-reftex)
 (add-hook 'yatex-mode-hook
           '(lambda ()
              (reftex-mode 1)
              (define-key reftex-mode-map (concat YaTeX-prefix ">") 'YaTeX-comment-region)
              (define-key reftex-mode-map (concat YaTeX-prefix "<") 'YaTeX-uncomment-region)))
+
 ;; -----------------------------------------------------------
 ;;数式モードの";"補間の強化
 ;; "$"で囲まれていたり，数式環境内 (equation とか) で有効
@@ -81,7 +82,7 @@
 ;;数式モードの","補間
 (setq YaTeX-math-funcs-list
       '(("s"  "sin"  "sin")
-	("c"  "cos"  "cos") 
+	("c"  "cos"  "cos")
 	("t"  "tan"  "tan")
 	("hs"  "sinh"  "sinh")
 	("hc"  "cosh"  "cosh")
@@ -109,19 +110,4 @@
 (setq YaTeX-math-key-list-private
       '(("," . YaTeX-math-funcs-list)
 	))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(which-function-mode t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(which-func ((t (:foreground "yellow")))))
-
-(add-hook 'yatex-mode-hook
-'(lambda () (auto-fill-mode -1)))
+;; -----------------------------------------------------------

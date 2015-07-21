@@ -1,4 +1,4 @@
-;; replace-colorthemes
+; replace-colorthemes
 ;; git clone https://github.com/emacs-jp/replace-colorthemes.git
 ;; (bundle! cycle-themes
 ;;   ;; 使うthemeを設定する
@@ -17,48 +17,7 @@
 ;;    (define-key cycle-themes-mode-map (kbd "C-c C-t") nil)
 ;;    (define-key cycle-themes-mode-map (kbd "C-c t") 'cycle-themes)))
 
-(require 'fill-column-indicator)
-;(bundle! fill-column-indicator)
-(require 'highlight-indentation)
-;(bundle! highlight-indentation)
-  (setq highlight-indentation-offset 4)
-  (set-face-background 'highlight-indentation-face "#e3e3d3")
-  (set-face-background 'highlight-indentation-current-column-face
-                       "#e3e3d3")
-  (add-hook 'python-mode-hook 'highlight-indentation-current-column-mode);)
-(require 'highlight-symbol)
-;(bundle! highlight-symbol
-  (global-set-key [(control f3)] 'highlight-symbol-at-point)
-  (global-set-key [f3] 'highlight-symbol-next)
-  (global-set-key [(shift f3)] 'highlight-symbol-prev)
-  (global-set-key [(meta f3)] 'highlight-symbol-query-replace);)
-;;;transparent emacs
-;; (set-frame-parameter (selected-frame) 'alpha '(85 50))
-;; (add-to-list 'default-frame-alist '(alpha 75 50))
-;; (defun toggle-transparency ()
-;;   (interactive)
-;;   (if (/=
-;;        (cadr (frame-parameter nil 'alpha))
-;;        100)
-;;       (set-frame-parameter nil 'alpha '(90 100))
-;;     (set-frame-parameter nil 'alpha '(15 25))))
-;; (global-set-key [f6] 'toggle-transparency)
-;;;color the current line
-(global-hl-line-mode t)
-(set-face-background 'hl-line "SlateBlue4")
-;;高速化
-(defun global-hl-line-timer-function ()
-  (global-hl-line-unhighlight-all)
-  (let ((global-hl-line-mode t))
-    (global-hl-line-highlight)))
-(setq global-hl-line-timer
-      (run-with-idle-timer 0.03 t 'global-hl-line-timer-function))
-;; (cancel-timer global-hl-line-timer)
-;;;maximize frame
-;(set-frame-parameter nil 'fullscreen 'maximized)
-
 ;; scroll bar
-;(bundle! yascroll
 (require 'yascroll)
 (global-yascroll-bar-mode t);)
 ;; show line numbers
@@ -66,7 +25,7 @@
   (global-set-key (kbd "M-n") #'linum-mode)
   (set-face-attribute 'linum nil :foreground "aquamarine4"))
 
-;; visualize whitespace
+; visualize whitespace
 (eval-after-load 'whitespace
   '(progn
      (setq whitespace-global-modes '(not) whitespace-style
@@ -112,8 +71,7 @@
       (while (and (>= (setq i (1- i)) 0)
                   (whitespace-char-or-glyph-code-valid-p (aref vec i))))
       (setq ad-return-value (< i 0)))))
-
-;; 保存前に自動でクリーンアップ
+;; clean up automatically
 (setq whitespace-action '(auto-cleanup))
 ;; activate
 (global-whitespace-mode)
@@ -121,7 +79,7 @@
 ;; show trailing whitespace
 (setq-default show-trailing-whitespace t)
 (add-hook 'comint-mode-hook #'(lambda() (setq show-trailing-whitespace nil)))
-;; 自動クリーンアップ無効化
+;; disable auto clean-up
 (add-hook 'markdown-mode-hook
           '(lambda ()
              (set (make-local-variable 'whitespace-action) nil)))

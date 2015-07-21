@@ -13,7 +13,7 @@ SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data 
+setopt share_history        # share command history data
 #setopt histignorealldups sharehistory
 
 # historical backward/forward search with linehead string binded to ^P/^N
@@ -21,7 +21,7 @@ autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end 
+bindkey "^N" history-beginning-search-forward-end
 
 # Use modern completion system(compsys)
 autoload -Uz compinit
@@ -109,20 +109,12 @@ export LD_RUN_PATH=/share/usr-x86_64/lib:/share/usr-x86_64/lib64
 ulimit -m 10000000
 ulimit -v 10000000
 
-
 function fxg() {
   find -name "$1" -print |xargs grep -inH "$2"
 }
 
-#alias agi="sudo apt-get install"
-
-#export PATH=/home/inamura/anaconda/bin:$PATH
-
-export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
-alias e='emacsclient -nw -a ""'
-alias emacs='emacsclient -nw -a ""'
-
 alias clang-format='clang-format-3.6'
+
 alias emacs='~/emacs-24.5/src/emacs'
 
 PATH=$HOME/gxp3:$PATH
