@@ -3,7 +3,7 @@
 (bundle! cycle-themes
   ;; 使うthemeを設定する
   (setq cycle-themes-theme-list
-        '(deeper-blue adwaita shaman julie))
+        '(deeper-blue adwaita julie)) ;; shaman
   ;; 切り替えたときのthemeを表示する
   (defun cycle-themes-after-cycle-hook--show ()
     (message "Themes = %S" custom-enabled-themes))
@@ -14,8 +14,8 @@
 (eval-after-load 'cycle-themes
 '(progn
    ;; C-c tで切り替える
-   (define-key cycle-themes-mode-map (kbd "C-c C-t") nil)
-   (define-key cycle-themes-mode-map (kbd "C-c t") 'cycle-themes)))
+   (define-key cycle-themes-mode-map [f9] nil)
+   (define-key cycle-themes-mode-map [f9] 'cycle-themes)))
 
 (bundle! fill-column-indicator)
 (bundle! highlight-indentation

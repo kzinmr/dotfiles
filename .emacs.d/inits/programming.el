@@ -5,7 +5,7 @@
   (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
   (add-hook 'ielm-mode-hook 'turn-on-eldoc-mode)
-  (setq eldoc-idle-delay 0.2) ;すぐに表示したい
+  ;(setq eldoc-idle-delay 0.2) ;すぐに表示したい
   (setq eldoc-minor-mode-string "") ;モードラインにElDocと表示しない
   ;; find-functionをキー割り当てする
   (find-function-setup-keys))
@@ -98,3 +98,4 @@
 ;; magit(http://magit.vc/)
 ;; M-x magit-status(git status); TAB(diff); s(add); c(commit); P(push)
 (bundle! magit)
+(setq magit-last-seen-setup-instructions "1.4.0")

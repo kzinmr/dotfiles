@@ -81,3 +81,25 @@
   ;;; swap-screenに倣ってf2/S-f2に割り当てる
   (global-set-key [f2] 'swap-buffers-keep-focus)
   (global-set-key [S-f2] 'swap-buffers))
+
+;; ace-jump-mode
+;; for multiple display
+(bundle! ace-jump-mode
+;; ace jump mode major function
+;(add-to-list 'load-path "/full/path/where/ace-jump-mode.el/in/")
+  (autoload
+    'ace-jump-mode
+    "ace-jump-mode"
+    "Emacs quick move minor mode"
+    t)
+  (define-key global-map (kbd "C-c SPC") 'ace-jump-mode))
+;; powerful jump back function from ace-jump-mode
+(eval-after-load "ace-jump-mode"
+  '(progn
+     (autoload
+       'ace-jump-mode-pop-mark
+       "ace-jump-mode"
+       "Ace jump back:-)"
+       t)
+     (ace-jump-mode-enable-mark-sync)
+     (define-key global-map (kbd "C-c C-SPC") 'ace-jump-mode-pop-mark)))
