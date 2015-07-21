@@ -13,7 +13,8 @@
 (global-set-key "\C-c\C-u" 'dired-jump)
 (global-set-key "\C-c\C-d" 'delete-region)
 (global-set-key "\C-c\C-h" 'help-command)
-(global-set-key "\C-c\C-v" 'describe-variable)
+(global-set-key "\C-cv" 'describe-variable)
+(global-set-key "\C-cf" 'describe-function)
 
 (bundle! sequential-command
   (define-sequential-command seq-home
