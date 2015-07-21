@@ -1,9 +1,8 @@
+;;;
 ;; -*- mode: emacs-lisp; coding: utf-8; indent-tabs-mode: nil -*-
 ;; -----------------------------------------------------------
-;; func for adding load-pathes recursively
-;; dirs that arent wanted to be read, named starting with '.' or '_'
-;;
-
+; func for adding load-pathes recursively
+;; no read dirs named starting with '.' or '_'
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -17,11 +16,7 @@
  "el-get/el-get"
  "elisp"
  "elpa"
- "submodules"
- "dummy"
  )
-;; (require 'info)
-;; (add-to-list 'Info-additional-directory-list "info")
 
 ;; -----------------------------------------------------------
 (when load-file-name
@@ -79,6 +74,3 @@
 ;;           (progn (package-refresh-contents)
 ;;                  (dolist (package not-installed)
 ;;                    (package-install package))))))
-;; -----------------------------------------------------------
-;;ProofGeneral for Coq
-;(load-file (concat (getenv "HOME") "/build/ProofGeneral/generic/proof-site.el"))
