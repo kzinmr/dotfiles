@@ -3,7 +3,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- 
+
  '(indicate-buffer-boundaries (quote right))
  '(tool-bar-mode nil)
  '(menu-bar-mode nil)
@@ -18,3 +18,6 @@
  '(blink-matching-paren t)
  '(show-paren-mode t)
  '(which-function-mode t))
+
+(custom-set-faces
+ '(which-func ((t (:foreground "yellow")))))

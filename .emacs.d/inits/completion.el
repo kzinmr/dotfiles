@@ -1,15 +1,4 @@
-;; zsh like completion
-(setq read-file-name-completion-ignore-case t)
-(bundle! zlc :url "http://github.com/mooz/emacs-zlc.git"
-  (zlc-mode t)
-  (let ((map minibuffer-local-map))
-    (define-key map (kbd "C-p") 'zlc-select-previous)
-    (define-key map (kbd "C-n") 'zlc-select-next)
-    (define-key map (kbd "<up>") 'zlc-select-previous-vertical)
-    (define-key map (kbd "<down>") 'zlc-select-next-vertical)
-    (define-key map (kbd "C-u") 'backward-kill-path-element)))
-
-;;helm
+; helm
 (bundle helm
   :features (helm cl-lib helm-config)
   (global-set-key (kbd "M-x") 'helm-M-x)
@@ -50,7 +39,6 @@
   '(progn
      (define-key helm-map (kbd "<RET>") 'my/helm-exit-minibuffer)))
 
-
 ;; auto completion like IntelliSense
 (bundle! popup)
 (bundle auto-complete
@@ -58,16 +46,13 @@
   (ac-config-default)
   (ac-set-trigger-key "TAB")
   (setq ac-auto-show-menu 0.5)
-
-;;; 適用するメジャーモードを足す
+  (setq ac-use-menu-map t)
   (add-to-list 'ac-modes 'c-mode)
-;;; ベースとなるソースを指定
   (defvar my-ac-sources
     '(ac-source-yasnippet
       ac-source-abbrev
       ac-source-dictionary
       ac-source-words-in-same-mode-buffers))
-;;; 個別にソースを指定
   (defun ac-c-mode-setup ()
     (setq-default ac-sources my-ac-sources))
   (add-hook 'c-mode-hook 'ac-c-mode-setup))
@@ -80,21 +65,61 @@
   ;;(save-excursion )tq ac-sources(whichis buffer-local var) "pre-defined symbbol"
   ;;ex.complete Emacs Lisp symbol in emacs-lisp-mode
   (defun emacs-lisp-ac-setup ()
-    (setq ac-sources 
-          '(ac-source-words-in-same-mode-buffers 
+    (setq ac-sources
+          '(ac-source-words-in-same-mode-buffers
             ac-source-symbols)))
   (add-hook 'emacs-lisp-mode-hook 'emacs-lisp-ac-setup)))
 (global-auto-complete-mode t)
-
-;;; C-n / C-p で選択
-(setq ac-use-menu-map t)
-;;; yasnippetのbindingを指定するとエラーが出るので回避する方法。
+;; avoid yasnippet key-binding error
 (setf (symbol-function 'yas-active-keys)
       (lambda ()
         (remove-duplicates (mapcan #'yas--table-all-keys (yas--get-snippet-tables)))))
+(bundle! auto-complete-latex)
 
-(bundle! auto-complete-latex
-;  (setq ac-l-dict-directory "~/.emacs.d/share/ac-l-dict/")
-;  (add-to-list 'ac-modes 'foo-mode)
-;  (add-hook 'foo-mode-hook 'ac-l-setup)
-)
+; yasnippet
+(bundle! dropdown-list)
+(bundle! yasnippet
+  (setq yas-snippet-dirs
+	'("~/.emacs.d/snippets"                 ; personal
+	  "~/.emacs.d/el-get/yasnippet/snippets" ; default
+	  "~/.emacs.d/el-get/yasnippet/yasmate/snippets" ; yasmate
+	  ))
+  (yas-global-mode 1))
+;  (custom-set-variables '(yas-trigger-key "TAB"))
+(eval-after-load 'yasnippet
+  '(progn
+     (define-key yas-minor-mode-map (kbd "C-x i i") 'yas-insert-snippet)
+     (define-key yas-minor-mode-map (kbd "C-x i n") 'yas-new-snippet)
+     ;; 既存スニペットを閲覧・編集
+     ;; yas-visit-snippet-file関数中の(yas-prompt-functions '(yas-ido-prompt yas-completing-prompt))をコメントアウト
+     (define-key yas-minor-mode-map (kbd "C-x i v") 'yas-visit-snippet-file)
+     (define-key yas-minor-mode-map (kbd "M-i") 'yas-expand)))
+(eval-after-load 'helm
+  '(progn
+     (defun my-yas/prompt (prompt choices &optional display-fn)
+       (let* ((names (loop for choice in choices
+                           collect (or (and display-fn (funcall display-fn choice))
+                                       choice)))
+              (selected (helm-other-buffer
+                         `(((name . ,(format "%s" prompt))
+                            (candidates . names)
+                            (action . (("Insert snippet" . (lambda (arg) arg))))))
+                         "*helm yas/prompt*")))
+         (if selected
+             (let ((n (position selected names :test 'equal)))
+               (nth n choices))
+           (signal 'quit "user quit!"))))
+     (custom-set-variables '(yas/prompt-functions '(my-yas/prompt)))))
+;; snippet-mode for *.yasnippet files
+(add-to-list 'auto-mode-alist '("\\.yasnippet$" . snippet-mode))
+
+; zsh like completion
+(setq read-file-name-completion-ignore-case t)
+(bundle! zlc :url "http://github.com/mooz/emacs-zlc.git"
+  (zlc-mode t)
+  (let ((map minibuffer-local-map))
+    (define-key map (kbd "C-p") 'zlc-select-previous)
+    (define-key map (kbd "C-n") 'zlc-select-next)
+    (define-key map (kbd "<up>") 'zlc-select-previous-vertical)
+    (define-key map (kbd "<down>") 'zlc-select-next-vertical)
+    (define-key map (kbd "C-u") 'backward-kill-path-element)))

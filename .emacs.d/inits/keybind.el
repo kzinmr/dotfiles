@@ -1,5 +1,4 @@
-;;;micellenious settings--------------------------------------
-;;keybinds
+; keybinds
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\C-j" 'newline-and-indent)
 ;(global-set-key "\C-x\C-b" 'list-buffers)
@@ -15,7 +14,7 @@
 (global-set-key "\C-c\C-d" 'delete-region)
 (global-set-key "\C-c\C-h" 'help-command)
 (global-set-key "\C-c\C-v" 'describe-variable)
-;; -----------------------------------------------------------
+
 (bundle! sequential-command
   (define-sequential-command seq-home
     beginning-of-line beginning-of-buffer seq-return)
