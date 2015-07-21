@@ -1,0 +1,217 @@
+;;; -*- coding: utf-8 -*-
+(("/home/inamura/workspace/"
+  (dired-filename . "/home/inamura/workspace/noun_tmp"))
+ ("/home/inamura/workspace/noun_tmp/"
+  (dired-filename . "/home/inamura/workspace/noun_tmp/.."))
+ ("/home/inamura/workspace/knppp/src/db/caseprob.cc" . 439)
+ ("/home/inamura/workspace/knppp/src/db/"
+  (dired-filename . "/home/inamura/workspace/knppp/src/db/co_occurrence.cc"))
+ ("/home/inamura/workspace/knppp/src/db/co_occurrence.cc" . 252)
+ ("/home/inamura/workspace/knppp/src/ca/ca.cc" . 1007)
+ ("/home/inamura/workspace/knppp/src/ca/"
+  (dired-filename . "/home/inamura/workspace/knppp/src/ca/.."))
+ ("/home/inamura/workspace/knppp/src/cky/setting.h" . 705)
+ ("/home/inamura/workspace/knppp/"
+  (dired-filename . "/home/inamura/workspace/knppp/src"))
+ ("/home/inamura/workspace/knppp/src/parameter.h" . 2527)
+ ("/home/inamura/workspace/knppp/src/"
+  (dired-filename . "/home/inamura/workspace/knppp/src/cky"))
+ ("/home/inamura/workspace/knppp/src/cky/"
+  (dired-filename . "/home/inamura/workspace/knppp/src/cky/table.cc"))
+ ("/home/inamura/workspace/knppp/src/cky/table.cc" . 8834)
+ ("/home/inamura/workspace/knppp/src/parser.cc" . 3179)
+ ("/home/inamura/.emacs.d/recentf" . 9141)
+ ("/home/inamura/parse_test/do.zsh" . 783)
+ ("/mnt/home/inamura/workspace/ParseEvalKit/scripts/auto-eval.sh" . 1007)
+ ("/mnt/home/inamura/workspace/ParseEvalKit/scripts/eval.pl" . 20577)
+ ("/home/inamura/parse_test/caseselect.sh" . 142)
+ ("/home/inamura/parse_test/caseselect_all.zsh" . 206)
+ ("/home/inamura/workspace/knppp/sample/ja/misc/2.gold" . 32)
+ ("/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/result/out.result" . 247)
+ ("/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw/"
+  (dired-filename . "/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw/.."))
+ ("/home/inamura/parse_test/2015-06-30/"
+  (dired-filename . "/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona"))
+ ("/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/"
+  (dired-filename . "/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/result"))
+ ("/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/result/"
+  (dired-filename . "/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/result/out.tree"))
+ ("/home/inamura/workspace/knppp/src/cky/cell.cc" . 3322)
+ ("/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/result/out.error" . 16155)
+ ("/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/result/out.mrph" . 3065)
+ ("/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/result/out.dpnd" . 72570)
+ ("/mnt/home/inamura/dotfiles/.zshrc" . 3670)
+ ("/mnt/home/inamura/parse_test/tmp/"
+  (dired-filename . "/mnt/home/inamura/parse_test/tmp/.."))
+ ("/mnt/home/inamura/"
+  (dired-filename . "/mnt/home/inamura/from0608to0630.txt"))
+ ("/mnt/home/inamura/from0608to0630.txt" . 1946)
+ ("/mnt/home/inamura/parse_test/sysdiff/150630nona/"
+  (dired-filename . "/mnt/home/inamura/parse_test/sysdiff/150630nona/.."))
+ ("/mnt/home/inamura/parse_test/2015-06-30/594ea6b.1best.5bw.wona/out/"
+  (dired-filename . "/mnt/home/inamura/parse_test/2015-06-30/594ea6b.1best.5bw.wona/out/.."))
+ ("/mnt/home/inamura/parse_test/2015-06-30/594ea6b.1best.5bw.wona/"
+  (dired-filename . "/mnt/home/inamura/parse_test/2015-06-30/594ea6b.1best.5bw.wona/result"))
+ ("/mnt/home/inamura/parse_test/2015-06-30/594ea6b.1best.5bw.wona/result/"
+  (dired-filename . "/mnt/home/inamura/parse_test/2015-06-30/594ea6b.1best.5bw.wona/result/out.result"))
+ ("/mnt/home/inamura/parse_test/2015-06-30/"
+  (dired-filename . "/mnt/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona"))
+ ("/mnt/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/"
+  (dired-filename . "/mnt/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/result"))
+ ("/mnt/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/result/"
+  (dired-filename . "/mnt/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/result/out.result"))
+ ("/mnt/home/inamura/parse_test/sysdiff/"
+  (dired-filename . "/mnt/home/inamura/parse_test/sysdiff/.."))
+ ("/mnt/home/inamura/parse_test/chg2nounvec.txt" . 121)
+ ("/mnt/home/inamura/parse_test/"
+  (dired-filename . "/mnt/home/inamura/parse_test/from0608to0630_na.txt"))
+ ("/mnt/home/inamura/parse_test/from0608to0630_na.txt" . 2815)
+ ("/mnt/home/inamura/parse_test/08to30toNA.txt" . 2935)
+ ("/mnt/home/inamura/parse_test/2015-06-30/b05647d.1best.5bw.wona/result/out.result" . 12)
+ ("/mnt/home/inamura/parse_test/sysdiff/150630nona/fo.result" . 191)
+ ("/mnt/home/inamura/parse_test/2015-06-30/594ea6b.1best.5bw.wona/result/out.error" . 16768)
+ ("/mnt/home/inamura/parse_test/2015-06-30/594ea6b.1best.5bw.wona/out/950101004-002.knp" . 2993)
+ ("/home/inamura/"
+  (dired-filename . "/home/inamura/.zshrc"))
+ ("/home/inamura/workspace/twchime/"
+  (dired-filename . "/home/inamura/workspace/twchime/twchime.py"))
+ ("/home/inamura/kytea.sh" . 532)
+ ("/home/inamura/workspace/twchime/mktest.py" . 26)
+ ("/home/inamura/workspace/twchime/twchime.py" . 25)
+ ("/home/inamura/workspace/twchime/jtwchime.py" . 189)
+ ("/home/inamura/workspace/knppp/src/ca/util.cc" . 1626)
+ ("/home/inamura/workspace/knppp/src/ca/pas.h" . 42)
+ ("/home/inamura/kadai/wakati.py" . 250)
+ ("/home/inamura/kadai/wakati.txt" . 24981)
+ ("/violet/share/lecture/command/gold.txt" . 20776)
+ ("/home/inamura/kadai/result.txt" . 51)
+ ("/home/inamura/kadai/diff." . 11)
+ ("/home/inamura/parse_test/2015-05-29/5de1a0f.1best.5bw/out/"
+  (dired-filename . "/home/inamura/parse_test/2015-05-29/5de1a0f.1best.5bw/out/.."))
+ ("/home/inamura/parse_test/sysdiff/"
+  (dired-filename . "/home/inamura/parse_test/sysdiff/fo.result"))
+ ("/home/inamura/parse_test/2015-05-29/5de1a0f.1best.5bw/result/"
+  (dired-filename . "/home/inamura/parse_test/2015-05-29/5de1a0f.1best.5bw/result/.."))
+ ("/home/inamura/parse_test/2015-05-29/5de1a0f.1best.5bw/"
+  (dired-filename . "/home/inamura/parse_test/2015-05-29/5de1a0f.1best.5bw/.."))
+ ("/home/inamura/parse_test/2015-05-29/"
+  (dired-filename . "/home/inamura/parse_test/2015-05-29/.."))
+ ("/home/inamura/parse_test/2015-05-27/6848b37.1best.5bw/result/"
+  (dired-filename . "/home/inamura/parse_test/2015-05-27/6848b37.1best.5bw/result/.."))
+ ("/home/inamura/parse_test/2015-05-27/6848b37.1best.5bw/"
+  (dired-filename . "/home/inamura/parse_test/2015-05-27/6848b37.1best.5bw/.."))
+ ("/home/inamura/parse_test/2015-05-27/"
+  (dired-filename . "/home/inamura/parse_test/2015-05-27/.."))
+ ("/home/inamura/parse_test/2015-05-26/6848b37.1best.5bw/result/"
+  (dired-filename . "/home/inamura/parse_test/2015-05-26/6848b37.1best.5bw/result/.."))
+ ("/home/inamura/parse_test/2015-05-26/6848b37.1best.5bw/"
+  (dired-filename . "/home/inamura/parse_test/2015-05-26/6848b37.1best.5bw/.."))
+ ("/home/inamura/parse_test/2015-05-26/"
+  (dired-filename . "/home/inamura/parse_test/2015-05-26/.."))
+ ("/mnt/violet/inamura/parse_test/2015-05-27/6848b37.1best.5bw/result/out.result" . 747)
+ ("/mnt/violet/inamura/parse_test/2015-05-29/5de1a0f.1best.5bw/result/out.result" . 201)
+ ("/home/inamura/parse_test/2015-05-27/6848b37.1best.5bw/result/out.result" . 1461)
+ ("/home/inamura/parse_test/2015-05-29/5de1a0f.1best.5bw/result/out.result" . 1461)
+ ("/home/inamura/parse_test/2015-05-29/5de1a0f.1best.5bw/result/auto.knp" . 3924874)
+ ("/home/inamura/parse_test/2015-05-29/5de1a0f.1best.5bw/out/950101078-011.knp" . 161)
+ ("/home/inamura/parse_test/"
+  (dired-filename . "/home/inamura/parse_test/sysdiff"))
+ ("/mnt/home/inamura/dotfiles/.emacs.d/init-loader/10_editting.el" . 3599)
+ ("/home/inamura/workspace/ParseEvalKit/scripts/tree_cmp.pl" . 6046)
+ ("/home/inamura/parse_test/make-sys-diff.zsh" . 143)
+ ("/home/inamura/workspace/ParseEvalKit/scripts/eval.pl" . 18460)
+ ("/home/inamura/parse_test/2015-05-27/6848b37.1best.5bw/result/out.error" . 16108)
+ ("/home/inamura/parse_test/2015-05-27/6848b37.1best.5bw/result/out.tree" . 143237)
+ ("/home/inamura/.emacs.d/"
+  (dired-filename . "/home/inamura/.emacs.d/init-loader"))
+ ("/home/inamura/.emacs.d/init-loader/"
+  (dired-filename . "/home/inamura/.emacs.d/init-loader/00_basic.el"))
+ ("/mnt/home/inamura/dotfiles/.emacs.d/inits/basic.el" . 260)
+ ("/violet/inamura/parse_test/make-sys-diff.zsh" . 16)
+ ("/mnt/home/inamura/dotfiles/.emacs.d/init-loader/10_programming.el" . 2495)
+ ("/mnt/home/inamura/dotfiles/.emacs.d/init-loader/"
+  (dired-filename . "/mnt/home/inamura/dotfiles/.emacs.d/init-loader/10_editting.el"))
+ ("/home/inamura/cmigemo/"
+  (dired-filename . "/home/inamura/cmigemo/.."))
+ ("/home/inamura/ddskk-15.2/"
+  (dired-filename . "/home/inamura/ddskk-15.2/.cvsignore"))
+ ("/mnt/home/inamura/dotfiles/.emacs.d/init.el" . 2706)
+ ("/home/inamura/.emacs.d/init-loader/tmp/"
+  (dired-filename . "/home/inamura/.emacs.d/init-loader/tmp/.."))
+ ("/mnt/home/inamura/dotfiles/.emacs.d/inits/programming.el" . 4107)
+ ("/home/inamura/.emacs.d/auto-install/"
+  (dired-filename . "/home/inamura/.emacs.d/auto-install/.."))
+ ("/mnt/home/inamura/dotfiles/.emacs.d/init-loader/00_package.el" . 350)
+ ("/mnt/home/inamura/cmigemo/doc/"
+  (dired-filename . "/mnt/home/inamura/cmigemo/doc/.."))
+ ("/mnt/home/inamura/cmigemo/configure" . 1083)
+ ("/mnt/home/inamura/cmigemo/"
+  (dired-filename . "/mnt/home/inamura/cmigemo/.."))
+ ("/mnt/home/inamura/.emacs.d/elpa/"
+  (dired-filename . "/mnt/home/inamura/.emacs.d/elpa/.."))
+ ("/mnt/home/inamura/.emacs.d/"
+  (dired-filename . "/mnt/home/inamura/.emacs.d/init-loader"))
+ ("/mnt/home/inamura/.emacs.d/init-loader/"
+  (dired-filename . "/mnt/home/inamura/.emacs.d/init-loader/10_editting.el"))
+ ("/mnt/home/inamura/dotfiles/.emacs.d/inits/"
+  (dired-filename . "/mnt/home/inamura/dotfiles/.emacs.d/inits/.."))
+ ("/mnt/home/inamura/dotfiles/.emacs.d/"
+  (dired-filename . "/mnt/home/inamura/dotfiles/.emacs.d/.."))
+ ("/mnt/home/inamura/dotfiles/"
+  (dired-filename . "/mnt/home/inamura/dotfiles/.zshrc"))
+ ("/mnt/home/inamura/dotfiles/.emacs.d/inits/editting.el" . 4341)
+ ("/mnt/home/inamura/cmigemo/doc/README_j.txt" . 12755)
+ ("/home/inamura/.emacs.d/elpa/"
+  (dired-filename . "/home/inamura/.emacs.d/elpa/.."))
+ ("/home/inamura/.emacs.d/elpa/iedit-20150415.1804/"
+  (dired-filename . "/home/inamura/.emacs.d/elpa/iedit-20150415.1804/iedit.el"))
+ ("/home/inamura/.emacs.d/elpa/magit-20150525.1145/magit-autoloads.el" . 24890)
+ ("/home/inamura/.emacs.d/elpa/git-commit-mode-20150330.1048/git-commit-mode-autoloads.el" . 770)
+ ("/home/inamura/.emacs.d/elpa/git-rebase-mode-20150122.1114/git-rebase-mode-autoloads.el" . 745)
+ ("/home/inamura/.emacs.d/elpa/iedit-20150415.1804/iedit-autoloads.el" . 3026)
+ ("/home/inamura/.emacs.d/elpa/eldoc-extension-20140306.1445/eldoc-extension-autoloads.el" . 252)
+ ("/home/inamura/.emacs.d/elpa/c-eldoc-20140728.1452/c-eldoc-autoloads.el" . 490)
+ ("/home/inamura/.emacs.d/elpa/flycheck-20150524.144/flycheck-autoloads.el" . 7807)
+ ("/home/inamura/.emacs.d/elpa/dash-20150513.1027/dash-autoloads.el" . 222)
+ ("/home/inamura/.emacs.d/elpa/pkg-info-20150517.443/pkg-info-autoloads.el" . 3756)
+ ("/home/inamura/.emacs.d/elpa/epl-20150517.433/epl-autoloads.el" . 220)
+ ("/home/inamura/.emacs.d/elpa/let-alist-1.0.3/let-alist-autoloads.el" . 1252)
+ ("/home/inamura/.emacs.d/elpa/git-gutter-fringe-20150331.2139/git-gutter-fringe-autoloads.el" . 256)
+ ("/home/inamura/.emacs.d/elpa/git-gutter-20150501.756/git-gutter-autoloads.el" . 2484)
+ ("/home/inamura/.emacs.d/elpa/fringe-helper-20140620.1409/fringe-helper-autoloads.el" . 248)
+ ("/home/inamura/.emacs.d/elpa/ggtags-20150325.2025/ggtags-autoloads.el" . 1221)
+ ("/home/inamura/.emacs.d/elpa/auto-async-byte-compile-20140212.2212/auto-async-byte-compile-autoloads.el" . 268)
+ ("/home/inamura/.emacs.d/elpa/visual-regexp-steroids-20150411.416/visual-regexp-steroids-autoloads.el" . 967)
+ ("/home/inamura/.emacs.d/elpa/visual-regexp-20150329.954/visual-regexp-autoloads.el" . 700)
+ ("/home/inamura/.emacs.d/elpa/redo+-20131117.1151/redo+-autoloads.el" . 224)
+ ("/home/inamura/.emacs.d/elpa/recentf-ext-20130130.2150/recentf-ext-autoloads.el" . 244)
+ ("/home/inamura/.emacs.d/elpa/point-undo-20100504.829/point-undo-autoloads.el" . 233)
+ ("/home/inamura/.emacs.d/elpa/open-junk-file-20130131.720/open-junk-file-autoloads.el" . 250)
+ ("/home/inamura/.emacs.d/elpa/fold-dwim-20140208.837/fold-dwim-autoloads.el" . 232)
+ ("/home/inamura/.emacs.d/el-get/bm/"
+  (dired-filename . "/home/inamura/.emacs.d/el-get/bm/.."))
+ ("/home/inamura/.emacs.d/el-get/auto-save-buffers-enhanced/"
+  (dired-filename . "/home/inamura/.emacs.d/el-get/auto-save-buffers-enhanced/.."))
+ ("/home/inamura/.emacs.d/el-get/cycle-themes/"
+  (dired-filename . "/home/inamura/.emacs.d/el-get/cycle-themes/.."))
+ ("/home/inamura/.emacs.d/el-get/fill-column-indicator/"
+  (dired-filename . "/home/inamura/.emacs.d/el-get/fill-column-indicator/.."))
+ ("/home/inamura/.emacs.d/el-get/init-loader/.git/"
+  (dired-filename . "/home/inamura/.emacs.d/el-get/init-loader/.git/.."))
+ ("/home/inamura/.emacs.d/inits/"
+  (dired-filename . "/home/inamura/.emacs.d/inits/appearance.el"))
+ ("/mnt/home/inamura/dotfiles/.emacs.d/inits/appearance.el" . 1071)
+ ("/home/inamura/.emacs.d/el-get/init-loader/"
+  (dired-filename . "/home/inamura/.emacs.d/el-get/init-loader/.."))
+ ("/home/inamura/.emacs.d/request/"
+  (dired-filename . "/home/inamura/.emacs.d/request/.."))
+ ("/home/inamura/.emacs.d/elpa/el-get-20150409.1626/recipes/"
+  (dired-filename . "/home/inamura/.emacs.d/elpa/el-get-20150409.1626/recipes/.."))
+ ("/home/inamura/.emacs.d/elpa/el-get-20150409.1626/"
+  (dired-filename . "/home/inamura/.emacs.d/elpa/el-get-20150409.1626/.."))
+ ("/home/inamura/.emacs.d/el-get/el-get/"
+  (dired-filename . "/home/inamura/.emacs.d/el-get/el-get/.."))
+ ("/home/inamura/.emacs.d/el-get/"
+  (dired-filename . "/home/inamura/.emacs.d/el-get/el-get"))
+ ("/home/inamura/.emacs.d/elpa/el-get-20150409.1626/recipes/el-get.rcp" . 200)
+ ("/home/inamura/.emacs.d/elpa/rainbow-mode-0.11/rainbow-mode-autoloads.el" . 482))

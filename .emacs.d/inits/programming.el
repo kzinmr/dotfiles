@@ -1,4 +1,5 @@
-(bundle! auto-async-byte-compile
+;(bundle! auto-async-byte-compile
+(require 'auto-async-byte-compile)
   ;;自動バイトコンパイルを無効にするファイル名の正規表現
   (setq auto-async-byte-compile-exclude-files-regexp "/junk/")
   (add-hook 'emacs-lisp-mode-hook 'enable-auto-async-byte-compile-mode)
@@ -8,17 +9,18 @@
   (setq eldoc-idle-delay 0.2) ;すぐに表示したい
   (setq eldoc-minor-mode-string "") ;モードラインにElDocと表示しない
   ;; find-functionをキー割り当てする
-  (find-function-setup-keys))
+  (find-function-setup-keys);)
 
 ;;apt-get install global
-(bundle! ggtags
+;(bundle! ggtags
+(require 'ggtags)
   ;;M-x imenu(jump to function)
   ;;M-.
   (add-hook 'c-mode-common-hook
             (lambda ()
               (when (derived-mode-p
                      'c-mode 'c++-mode 'java-mode)
-                (ggtags-mode 1)))))
+                (ggtags-mode 1))));)
 
 ;; -----------------------------------------------------------
 ;; pair input
@@ -59,12 +61,16 @@
       '(which-func-mode ("" which-func-format)))
 
 ;; git-gutter(use *-fringe to work with linum-mode)
-(bundle! git-gutter-fringe
-  (global-git-gutter-mode t))
+;; cannot use in witout-GUI setting emacs
+;(bundle! git-gutter-fringe
+;; (require 'fringe-helper)
+;; (require 'git-gutter-fringe)
+;; (global-git-gutter-mode t);)
 
 ;; flycheck
-(bundle flycheck
-  (add-hook 'after-init-hook #'global-flycheck-mode))
+;(bundle flycheck
+(require 'flycheck)
+  (add-hook 'after-init-hook #'global-flycheck-mode);)
 
 ;; eldoc
 (setq-default eldoc-idle-delay 0.1
@@ -74,20 +80,23 @@
                 lisp-interaction-mode-hook
                 ielm-mode-hook))
   (add-hook hook #'turn-on-eldoc-mode))
-(bundle c-eldoc
+;(bundle c-eldoc
+(require 'c-eldoc)
   (dolist (hook '(c-mode-hook c++-mode-hook))
     (add-hook hook #'(lambda ()
                        (set (make-local-variable 'eldoc-idle-delay) 0.3)
-                       (c-turn-on-eldoc-mode)))))
-(bundle eldoc-extension)
+                       (c-turn-on-eldoc-mode))));)
+;(bundle eldoc-extension)
+(require 'eldoc-extension)
 
 ;; C-;でカーソル位置の (またはリージョン指定した) シンボルを対象として同時編集モードに入る。
 ;; M-hでマッチする範囲をカーソル位置の関数に限定。
 ;; M-iでマッチする範囲をカーソル位置の行に限定。M-n,M-pで領域を上下に1行ずつ増やす。
 ;; TAB,Shift-TABでマッチした箇所を巡回。巡回中にC-mで現在位置のマッチを解除。
 ;; C-;で同時編集モード終了。
-(bundle! victorhge/iedit
-  (define-key global-map (kbd "C-c ;") 'iedit-mode))
+;(bundle! victorhge/iedit
+(require 'i)
+(define-key global-map (kbd "C-c ;") 'iedit-mode);)
 (define-key iedit-mode-keymap (kbd "C-m") 'iedit-toggle-selection)
 (define-key iedit-mode-keymap (kbd "M-p") 'iedit-expand-up-a-line)
 (define-key iedit-mode-keymap (kbd "M-n") 'iedit-expand-down-a-line)
@@ -97,4 +106,6 @@
 
 ;; magit(http://magit.vc/)
 ;; M-x magit-status(git status); TAB(diff); s(add); c(commit); P(push)
-(bundle! magit)
+   ;(bundle! magit)
+(require 'magit)
+(setq magit-last-seen-setup-instructions "1.4.0")

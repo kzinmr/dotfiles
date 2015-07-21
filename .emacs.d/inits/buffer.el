@@ -1,8 +1,10 @@
 ;;;buffer&file------------------------------------------------
-(bundle! auto-save-buffers-enhanced
-  (setq auto-save-buffers-enhanced-interval 1)
-  (auto-save-buffers-enhanced t))
-(bundle! bm
+;(bundle! auto-save-buffers-enhanced
+(require 'auto-save-buffers-enhanced)
+(setq auto-save-buffers-enhanced-interval 1)
+  (auto-save-buffers-enhanced t);)
+;(bundle! bm
+(require 'bm)
   (setq-default bm-buffer-persistence nil)
   (setq bm-restore-repository-on-load t)
   (global-set-key "\M-@" 'bm-toggle)
@@ -12,16 +14,17 @@
   (add-hook 'kill-buffer-hook 'bm-buffer-save)
   (add-hook 'after-save-hook 'bm-buffer-save)
   (add-hook 'after-revert-hook 'bm-buffer-restore)
-  (add-hook 'vc-vefore-checkin-hook 'bm-buffer-save))
-(bundle! goto-chg
+  (add-hook 'vc-vefore-checkin-hook 'bm-buffer-save);)
+;(bundle! goto-chg
+(require 'goto-chg)
   (global-set-key [f8] 'goto-last-change)
-  (global-set-key [S-f8] 'goto-last-change-reverse))
+  (global-set-key [S-f8] 'goto-last-change-reverse);)
 
 ;;;keep history till next startup
-(savehist-mode 1)
+(savehist-mode t)
 ;;;memorize the cursor place in file
-(setq-default save-place t)
 (require 'saveplace)
+(setq-default save-place t)
 ;;;expand the length of log
 (setq message-log-max 10000)
 ;;;warning when large size file is opend(25MB over(10MB is default))

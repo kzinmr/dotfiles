@@ -1,45 +1,48 @@
 ;; replace-colorthemes
 ;; git clone https://github.com/emacs-jp/replace-colorthemes.git
-(bundle! cycle-themes
-  ;; 使うthemeを設定する
-  (setq cycle-themes-theme-list
-        '(deeper-blue adwaita shaman julie))
-  ;; 切り替えたときのthemeを表示する
-  (defun cycle-themes-after-cycle-hook--show ()
-    (message "Themes = %S" custom-enabled-themes))
-  (add-hook 'cycle-themes-after-cycle-hook 'cycle-themes-after-cycle-hook--show)
-  ;; [2015-04-28 Tue]これがないとエラーになる…
-  (setq custom-known-themes (append '(user changed) cycle-themes-theme-list))
-  (cycle-themes-mode 1))
-(eval-after-load 'cycle-themes
-'(progn
-   ;; C-c tで切り替える
-   (define-key cycle-themes-mode-map (kbd "C-c C-t") nil)
-   (define-key cycle-themes-mode-map (kbd "C-c t") 'cycle-themes)))
+;; (bundle! cycle-themes
+;;   ;; 使うthemeを設定する
+;;   (setq cycle-themes-theme-list
+;;         '(deeper-blue adwaita shaman julie))
+;;   ;; 切り替えたときのthemeを表示する
+;;   (defun cycle-themes-after-cycle-hook--show ()
+;;     (message "Themes = %S" custom-enabled-themes))
+;;   (add-hook 'cycle-themes-after-cycle-hook 'cycle-themes-after-cycle-hook--show)
+;;   ;; [2015-04-28 Tue]これがないとエラーになる…
+;;   (setq custom-known-themes (append '(user changed) cycle-themes-theme-list))
+;;   (cycle-themes-mode 1))
+;; (eval-after-load 'cycle-themes
+;; '(progn
+;;    ;; C-c tで切り替える
+;;    (define-key cycle-themes-mode-map (kbd "C-c C-t") nil)
+;;    (define-key cycle-themes-mode-map (kbd "C-c t") 'cycle-themes)))
 
-(bundle! fill-column-indicator)
-(bundle! highlight-indentation
+(require 'fill-column-indicator)
+;(bundle! fill-column-indicator)
+(require 'highlight-indentation)
+;(bundle! highlight-indentation)
   (setq highlight-indentation-offset 4)
   (set-face-background 'highlight-indentation-face "#e3e3d3")
   (set-face-background 'highlight-indentation-current-column-face
                        "#e3e3d3")
-  (add-hook 'python-mode-hook 'highlight-indentation-current-column-mode))
-(bundle! highlight-symbol
+  (add-hook 'python-mode-hook 'highlight-indentation-current-column-mode);)
+(require 'highlight-symbol)
+;(bundle! highlight-symbol
   (global-set-key [(control f3)] 'highlight-symbol-at-point)
   (global-set-key [f3] 'highlight-symbol-next)
   (global-set-key [(shift f3)] 'highlight-symbol-prev)
-  (global-set-key [(meta f3)] 'highlight-symbol-query-replace))
+  (global-set-key [(meta f3)] 'highlight-symbol-query-replace);)
 ;;;transparent emacs
-(set-frame-parameter (selected-frame) 'alpha '(85 50))
-(add-to-list 'default-frame-alist '(alpha 75 50))
-(defun toggle-transparency ()
-  (interactive)
-  (if (/=
-       (cadr (frame-parameter nil 'alpha))
-       100)
-      (set-frame-parameter nil 'alpha '(90 100))
-    (set-frame-parameter nil 'alpha '(15 25))))
-(global-set-key [f6] 'toggle-transparency)
+;; (set-frame-parameter (selected-frame) 'alpha '(85 50))
+;; (add-to-list 'default-frame-alist '(alpha 75 50))
+;; (defun toggle-transparency ()
+;;   (interactive)
+;;   (if (/=
+;;        (cadr (frame-parameter nil 'alpha))
+;;        100)
+;;       (set-frame-parameter nil 'alpha '(90 100))
+;;     (set-frame-parameter nil 'alpha '(15 25))))
+;; (global-set-key [f6] 'toggle-transparency)
 ;;;color the current line
 (global-hl-line-mode t)
 (set-face-background 'hl-line "SlateBlue4")
@@ -52,11 +55,12 @@
       (run-with-idle-timer 0.03 t 'global-hl-line-timer-function))
 ;; (cancel-timer global-hl-line-timer)
 ;;;maximize frame
-(set-frame-parameter nil 'fullscreen 'maximized)
+;(set-frame-parameter nil 'fullscreen 'maximized)
 
 ;; scroll bar
-(bundle! yascroll
-  (global-yascroll-bar-mode t))
+;(bundle! yascroll
+(require 'yascroll)
+(global-yascroll-bar-mode t);)
 ;; show line numbers
 (when (require 'linum nil t)
   (global-set-key (kbd "M-n") #'linum-mode)

@@ -1,17 +1,20 @@
 ;; zsh like completion
 (setq read-file-name-completion-ignore-case t)
-(bundle! zlc :url "http://github.com/mooz/emacs-zlc.git"
+;(bundle! zlc :url "http://github.com/mooz/emacs-zlc.git"
+(require 'zlc)
   (zlc-mode t)
   (let ((map minibuffer-local-map))
     (define-key map (kbd "C-p") 'zlc-select-previous)
     (define-key map (kbd "C-n") 'zlc-select-next)
     (define-key map (kbd "<up>") 'zlc-select-previous-vertical)
     (define-key map (kbd "<down>") 'zlc-select-next-vertical)
-    (define-key map (kbd "C-u") 'backward-kill-path-element)))
+    (define-key map (kbd "C-u") 'backward-kill-path-element));)
 
 ;;helm
-(bundle helm
-  :features (helm cl-lib helm-config)
+;(bundle helm
+(require 'cl-lib)
+(require 'helm-config)
+;  :features (helm cl-lib helm-config)
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-c h") 'helm-command-prefix)
   (global-unset-key (kbd "C-x c"))
@@ -31,7 +34,7 @@
   ;; Unset key C-h to use normal C-h
   (add-hook 'helm-before-initialize-hook
             '(lambda ()
-               (define-key helm-map (kbd "C-h") nil))))
+               (define-key helm-map (kbd "C-h") nil)));)
 (eval-after-load 'helm
   '(progn
      (define-key helm-map (kbd "C-h") 'delete-backward-char)
@@ -41,7 +44,7 @@
      (define-key helm-map (kbd "C-z") 'helm-select-action)
      (defconst helm-split-window-default-side 'other)
      ))
-(helm-mode 1)
+(helm-mode t)
 ;;[Display not ready]
 (defun my/helm-exit-minibuffer ()
   (interactive)
@@ -80,8 +83,8 @@
   ;;(save-excursion )tq ac-sources(whichis buffer-local var) "pre-defined symbbol"
   ;;ex.complete Emacs Lisp symbol in emacs-lisp-mode
   (defun emacs-lisp-ac-setup ()
-    (setq ac-sources 
-          '(ac-source-words-in-same-mode-buffers 
+    (setq ac-sources
+          '(ac-source-words-in-same-mode-buffers
             ac-source-symbols)))
   (add-hook 'emacs-lisp-mode-hook 'emacs-lisp-ac-setup)))
 (global-auto-complete-mode t)
