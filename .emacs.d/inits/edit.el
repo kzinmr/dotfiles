@@ -1,7 +1,7 @@
 ; show recent used files
 (bundle! recentf-ext
   (setq recentf-max-saved-items 1000)
-  (setq recentf-exclude '("/TAGS$" "/var/tmp/"))
+  (setq recentf-exclude '("/TAGS$" "/var/tmp/" ".png" ".jpg"))
   (global-set-key "\C-z" 'recentf-open-files))
 
 ; open junk file for trial
@@ -60,4 +60,6 @@
    ((equal skk-kutouten-type 'jp)
     (setq-default skk-kutouten-type 'en))
    ((t nil))))
-(global-set-key (kbd "<f5>") 'toggle-skk-kutouten-type)
+(global-set-key (kbd "<f3>") 'toggle-skk-kutouten-type)
+
+;; howm

@@ -1,4 +1,6 @@
-; replace-colorthemes
+;;; Appearrance settings
+
+;replace-colorthemes
 ;; git clone https://github.com/emacs-jp/replace-colorthemes.git
 (bundle! cycle-themes
   (setq cycle-themes-theme-list
@@ -12,8 +14,8 @@
   (cycle-themes-mode 1))
 (eval-after-load 'cycle-themes
 '(progn
-   (define-key cycle-themes-mode-map [f9] nil)
-   (define-key cycle-themes-mode-map [f9] 'cycle-themes)))
+   (define-key cycle-themes-mode-map [f6] nil)
+   (define-key cycle-themes-mode-map [f6] 'cycle-themes)))
 
 ; maximize frame
 (set-frame-parameter nil 'fullscreen 'maximized)
@@ -28,12 +30,12 @@
        100)
       (set-frame-parameter nil 'alpha '(90 100))
     (set-frame-parameter nil 'alpha '(15 25))))
-(global-set-key [f6] 'toggle-transparency)
+(global-set-key [f9] 'toggle-transparency)
 
 ; side-frame
 ;;simple scroll-bar
-(bundle! yascroll
-  (global-yascroll-bar-mode t))
+;; (bundle! yascroll
+;;   (global-yascroll-bar-mode t))
 ;;show line numbers
 (when (require 'linum nil t)
   (global-set-key (kbd "M-n") #'linum-mode)

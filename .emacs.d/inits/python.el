@@ -35,7 +35,10 @@
 
 ;pip install autopep8
 (bundle! 'py-autopep8
-  (add-hook 'python-mode-hook 'py-autopep8-enable-on-save))
+  (define-key python-mode-map (kbd "C-c F") 'py-autopep8)
+  (define-key python-mode-map (kbd "C-c f") 'py-autopep8-region)
+;; (add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+)
 
 ; Elpy.el
 ;;pip install --user rope jedi flake8 (importmagic)
@@ -52,7 +55,9 @@
 ; Code block shifting: C-c > or C-c <
 ; Automatic import is brought in by importmagic (disabled dueto error)
 (bundle! elpy
-  (elpy-enable))
+  (elpy-enable)
+  (setq elpy-rpc-backend "jedi")
+  )
 ;; Fixing a key binding bug in elpy
 (define-key yas-minor-mode-map (kbd "C-c k") 'yas-expand)
 ;; Fixing another key binding bug in iedit mode

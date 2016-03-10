@@ -42,3 +42,6 @@ abbrev_defs
 *.L
 places
 recentf
+backup
+bookmarks
+tramp

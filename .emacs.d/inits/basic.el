@@ -1,3 +1,5 @@
+;;; Basic settings
+
 ;; shell
 (setq-default explicit-shell-file-name "zsh")
 (setq shell-file-name "zsh"

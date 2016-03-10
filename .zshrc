@@ -13,7 +13,7 @@ SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data 
+setopt share_history        # share command history data
 #setopt histignorealldups sharehistory
 
 # historical backward/forward search with linehead string binded to ^P/^N
@@ -21,7 +21,7 @@ autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end 
+bindkey "^N" history-beginning-search-forward-end
 
 # Use modern completion system(compsys)
 autoload -Uz compinit
@@ -95,24 +95,15 @@ alias pbcopy='xsel --clipboard --input'
 alias pbpaste='xsel --clipboard --output'
 alias tmux-copy='tmux save-buffer - | pbcopy'
 
-# OPAM configuration
-. /home/inamura/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-#virtualenv python
-export PIP_DOWNLOAD_CACHE=$HOME/.pip
-export PIP_SRC=$PIP_DOWNLOAD_CACHE
-export PIP_RESPECT_VIRTUALENV=true
-
 function fxg() {
   find -name "$1" -print |xargs grep -inH "$2"
 }
 
-alias agi="sudo apt-get install"
+# pyenv
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
+# enable shims and autocompletion
+eval eval "$(pyenv init -)"
 
-export PATH=/home/inamura/anaconda/bin:$PATH
-
-export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
-alias e='emacsclient -nw -a ""'
-alias emacs='emacsclient -nw -a ""'
-
-alias clang-format='clang-format-3.6'
+# enable auto-activation of virtualenvs
+eval "$(pyenv virtualenv-init -)"

@@ -1,4 +1,6 @@
-; helm
+;;; Completion settings
+
+;helm
 (bundle helm
   :features (helm cl-lib helm-config)
   (global-set-key (kbd "M-x") 'helm-M-x)
@@ -40,41 +42,99 @@
      (define-key helm-map (kbd "<RET>") 'my/helm-exit-minibuffer)))
 
 ;; auto completion like IntelliSense
-(bundle! popup)
-(bundle auto-complete
-  :features (auto-complete auto-complete-config)
-  (ac-config-default)
-  (ac-set-trigger-key "TAB")
-  (setq ac-auto-show-menu 0.5)
-  (setq ac-use-menu-map t)
-  (add-to-list 'ac-modes 'c-mode)
-  (defvar my-ac-sources
-    '(ac-source-yasnippet
-      ac-source-abbrev
-      ac-source-dictionary
-      ac-source-words-in-same-mode-buffers))
-  (defun ac-c-mode-setup ()
-    (setq-default ac-sources my-ac-sources))
-  (add-hook 'c-mode-hook 'ac-c-mode-setup))
-(eval-after-load 'auto-complete
-  '(progn
-  (define-key ac-complete-mode-map "\C-n" 'ac-next)
-  (define-key ac-complete-mode-map "\C-p" 'ac-previous)
-  ;;(add-to-list 'ac-sources 'ac-source-yasnippet)
-  ;;complete from some other source
-  ;;(save-excursion )tq ac-sources(whichis buffer-local var) "pre-defined symbbol"
-  ;;ex.complete Emacs Lisp symbol in emacs-lisp-mode
-  (defun emacs-lisp-ac-setup ()
-    (setq ac-sources
-          '(ac-source-words-in-same-mode-buffers
-            ac-source-symbols)))
-  (add-hook 'emacs-lisp-mode-hook 'emacs-lisp-ac-setup)))
-(global-auto-complete-mode t)
-;; avoid yasnippet key-binding error
-(setf (symbol-function 'yas-active-keys)
-      (lambda ()
-        (remove-duplicates (mapcan #'yas--table-all-keys (yas--get-snippet-tables)))))
-(bundle! auto-complete-latex)
+(bundle! company
+  (global-company-mode 1) ;特定のmodeだけで有効にしたいときは消して add-hook
+  (setq company-idle-delay 0) ; デフォルトは0.5
+  (setq company-minimum-prefix-length 2) ; デフォルトは4
+  (setq company-selection-wrap-around t) ; 候補の一番下から一番上に戻る
+  ;; (setq company-idle-delay nil) ;;手動補完 M-x company-complete
+)
+(bundle! pos-tip)
+(bundle! company-quickhelp
+  (company-quickhelp-mode 1))
+;; (bundle! company-statistics
+;;   (setq company-transformers
+;;         '(company-sort-by-statistics company-sort-by-backend-importance)))
+
+;; default backends
+;; (company-bbdb ;; address book for nearly every email and news client
+;;  company-nxml
+;;  company-css
+;;  company-eclim ;; eclipse from emacs
+;;  company-semantic ;;
+;;  company-clang
+;;  company-xcode ;;completion back-end for Xcode projects
+;;  company-cmake
+;;  company-capf
+;;  (company-dabbrev-code company-gtags company-etags company-keywords)
+;;  company-oddmuse ;;for editting pages on Oddmuse wikis (such as EmacsWiki)
+;;  company-files
+;;  company-dabbrev)
+(bundle! company-math
+  ;; (add-to-list 'company-backends 'company-math-symbols-unicode)
+  (defun my-latex-mode-setup ()
+    (setq-local company-backends
+                (append '(company-math-symbols-latex company-latex-commands)
+                        company-backends)))
+  (add-hook 'tex-mode-hook 'my-latex-mode-setup)
+)
+(bundle! company-jedi
+  ;; :features (company-jedi jedi-core)
+  ;; (setq jedi:complete-on-dot t)
+  ;; (setq jedi:use-shortcuts t)
+  ;; (add-hook 'python-mode-hook 'jedi:setup)
+  (defun my/python-mode-hook ()
+    (add-to-list 'company-backends 'company-jedi))
+  (add-hook 'python-mode-hook 'my/python-mode-hook)
+)
+
+
+;; local configuration for TeX modes
+
+(defun company-my-backend (command &optional arg &rest ignored)
+  (interactive (list 'interactive))
+  (pcase command
+    (`interactive (company-begin-backend 'company-my-backend))
+    (`prefix (when (looking-back "foo\\>")
+              (match-string 0)))
+    (`candidates (list "foobar" "foobaz" "foobarbaz"))
+    (`meta (format "This value is named %s" arg))))
+
+;; (bundle! popup)
+;; (bundle auto-complete
+;;   :features (auto-complete auto-complete-config)
+;;   (ac-config-default)
+;;   (ac-set-trigger-key "TAB")
+;;   (setq ac-auto-show-menu 0.5)
+;;   (setq ac-use-menu-map t)
+;;   (add-to-list 'ac-modes 'c-mode)
+;;   (defvar my-ac-sources
+;;     '(ac-source-yasnippet
+;;       ac-source-abbrev
+;;       ac-source-dictionary
+;;       ac-source-words-in-same-mode-buffers))
+;;   (defun ac-c-mode-setup ()
+;;     (setq-default ac-sources my-ac-sources))
+;;   (add-hook 'c-mode-hook 'ac-c-mode-setup))
+;; (eval-after-load 'auto-complete
+;;   '(progn
+;;   (define-key ac-complete-mode-map "\C-n" 'ac-next)
+;;   (define-key ac-complete-mode-map "\C-p" 'ac-previous)
+;;   ;;(add-to-list 'ac-sources 'ac-source-yasnippet)
+;;   ;;complete from some other source
+;;   ;;(save-excursion )tq ac-sources(whichis buffer-local var) "pre-defined symbbol"
+;;   ;;ex.complete Emacs Lisp symbol in emacs-lisp-mode
+;;   (defun emacs-lisp-ac-setup ()
+;;     (setq ac-sources
+;;           '(ac-source-words-in-same-mode-buffers
+;;             ac-source-symbols)))
+;;   (add-hook 'emacs-lisp-mode-hook 'emacs-lisp-ac-setup)))
+;; (global-auto-complete-mode t)
+;; ;; avoid yasnippet key-binding error
+;; (setf (symbol-function 'yas-active-keys)
+;;       (lambda ()
+;;         (remove-duplicates (mapcan #'yas--table-all-keys (yas--get-snippet-tables)))))
+;; (bundle! auto-complete-latex)
 
 ; yasnippet
 (bundle! dropdown-list)

@@ -6,7 +6,19 @@
 ; auto saving buffer by 1 sec
 (bundle! auto-save-buffers-enhanced
   (setq auto-save-buffers-enhanced-interval 1)
+  (setq auto-save-buffers-enhanced-exclude-regexps '("^/ssh:" "/sudo:" "/multi:"))
   (auto-save-buffers-enhanced t))
+
+;; create backup file in ~/.emacs.d/backup
+(setq make-backup-files t)
+(setq backup-directory-alist
+  (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backup"))
+    backup-directory-alist))
+
+;; create auto-save file in ~/.emacs.d/backup
+(setq auto-save-file-name-transforms
+      `((".*" ,(expand-file-name "~/.emacs.d/backup/") t)))
+
 
 ; bookmark & highlight lines
 (bundle! bm

@@ -33,14 +33,23 @@
 ; iedit
 ;; M-iでマッチする範囲をカーソル位置の行に限定。M-n,M-pで領域を上下に1行ずつ増やす。
 ;; TAB,Shift-TABでマッチした箇所を巡回。巡回中にC-mで現在位置のマッチを解除。
-(bundle! victorhge/iedit
-  (define-key global-map (kbd "C-c ;") 'iedit-mode))
+(bundle! iedit;victorhge/iedit
+  (define-key global-map (kbd "C-;") 'iedit-mode))
 (define-key iedit-mode-keymap (kbd "C-m") 'iedit-toggle-selection)
 (define-key iedit-mode-keymap (kbd "M-p") 'iedit-expand-up-a-line)
 (define-key iedit-mode-keymap (kbd "M-n") 'iedit-expand-down-a-line)
 (define-key iedit-mode-keymap (kbd "M-h") 'iedit-restrict-function)
 (define-key iedit-mode-keymap (kbd "M-i") 'iedit-restrict-current-line)
 (define-key iedit-mode-keymap (kbd "C-h") 'delete-backward-char)
+
+; anzu
+;;検索マッチ総数と現在のカウントを表示
+(bundle! anzu
+  (global-anzu-mode +1)
+  (custom-set-variables
+   '(anzu-mode-lighter "")
+   '(anzu-deactivate-region t)
+   '(anzu-search-threshold 1000)))
 
 ; cmigemo
 (bundle! migemo
