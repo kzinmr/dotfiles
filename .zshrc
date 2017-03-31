@@ -83,11 +83,5 @@ function fxg() {
 }
 
 # emacs
-alias e='emacsclient -nw -a ""'
-alias emacs='emacsclient -nw -a ""'
+alias emacs='emacs-26.0.50'
 
-
-# OPAM configuration
-. $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-alias clang-format='clang-format-3.6'

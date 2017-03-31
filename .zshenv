@@ -16,11 +16,8 @@ esac
 # locale
 export LANG=ja_JP.UTF-8
 
-[ -f ~/.zshrc.mine ] && source ~/.zshrc.mine
-
 # editor
 export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
-
 
 # pyenv
 export PYENV_ROOT=$HOME/.pyenv
@@ -38,23 +35,3 @@ export PATH=$HOME/eclipse:$PATH
 export PATH=/opt/go/bin:$PATH
 export GOPATH=$HOME/.go
 
-
-# cpanm
-export PATH=$HOME/local/lib/perl/bin/:$PATH
-export PERL_CPANM_OPT="--local-lib=$HOME/local/lib/perl"
-export PERL_MM_OPT="$HOME/local/lib/perl"
-export PERL_MB_OPT="$HOME/local/lib/perl"
-export PERL5LIB=$HOME/local/lib/perl/lib/perl5/:$PERL5LIB
-
-export PERL5LIB=$HOME/workspace/pm/kawahara-pm/perl:$HOME/workspace/pm/Utils/perl:$PERL5LIB
-
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
-export DATABASE_URL=postgres:///$(whoami)
-
-export SRILM=$HOME/workspace/srilm
-export PATH=$SRILM/bin/i686-m64:$SRILM/bin:$PATH
-export MANPATH=$SRILM/man:$MANPATH
-export RNNLM=$HOME/workspace/rnnlm
