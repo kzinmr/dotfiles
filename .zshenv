@@ -19,19 +19,34 @@ export LANG=ja_JP.UTF-8
 # editor
 export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
 
-# pyenv
-export PYENV_ROOT=$HOME/.pyenv
-export PATH=$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
-# enable shims and autocompletion
-eval eval "$(pyenv init -)"
-
-# enable auto-activation of virtualenvs
-eval "$(pyenv virtualenv-init -)"
-
-# Java
-export PATH=$HOME/eclipse:$PATH
-
 # Go
-export PATH=/opt/go/bin:$PATH
-export GOPATH=$HOME/.go
+if command -v go &> /dev/null; then
+  [ -d "$HOME/go" ] || mkdir "$HOME/go"
+  export GOPATH="$HOME/.go"
+  export GOROOT=/usr/local/opt/go/libexec
+  export PATH="$PATH:$GOPATH/bin:$GOROOT/bin"
+fi
 
+# Load rbenv
+if [ -e "$HOME/.rbenv" ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init - zsh)"
+fi
+
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+
+export PATH=/usr/local/bin:$PATH
+#export PATH=$HOME/activator/bin:$PATH
+
+export PATH="$HOME/miniconda3/bin:$PATH"
+alias julia="/Applications/Julia-0.5.app/Contents/Resources/julia/bin/julia"
+
+export PATH=$HOME/google-cloud-sdk/bin:$PATH
+
+export PATH=$HOME/llvm-3.7.1/build/bin:$PATH
+export LLVM_CONFIG=$HOME/llvm-3.7.1/build/bin/llvm-config
+
+export PATH=$HOME/.local/bin:$PATH
+
+export PATH=$HOME/.opam/system/bin:$PATH

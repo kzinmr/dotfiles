@@ -1,87 +1,106 @@
-# Set up the prompt
+if [[ ! -d ~/.zplug ]];then
+  git clone https://github.com/zplug/zplug ~/.zplug
+fi
 
-autoload -Uz promptinit
-promptinit
-prompt adam1
+source ~/.zplug/init.zsh
 
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
+# enhancd config
+export ENHANCD_COMMAND=ed
+export ENHANCD_FILTER=ENHANCD_FILTER=fzy:fzf:peco
 
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-HISTSIZE=10000
-SAVEHIST=10000
-HISTFILE=~/.zsh_history
+# Vanilla shell
+zplug "yous/vanilli.sh"
 
-setopt hist_ignore_dups     # ignore duplication command history list
-setopt share_history        # share command history data
-#setopt histignorealldups sharehistory
+# Additional completion definitions for Zsh
+zplug "zsh-users/zsh-completions"
 
-# historical backward/forward search with linehead string binded to ^P/^N
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
+# Load the theme.
+#zplug "yous/lime"
+#export LIME_DIR_DISPLAY_COMPONENTS=2
 
-# Use modern completion system(compsys)
-autoload -Uz compinit
-compinit
+# Syntax highlighting bundle. zsh-syntax-highlighting must be loaded after
+# excuting compinit command and sourcing other plugins.
+zplug "zsh-users/zsh-syntax-highlighting", defer:1
 
-setopt auto_cd
-setopt auto_pushd
-setopt correct
-setopt list_packed
-setopt nolistbeep
+# ZSH port of Fish shell's history search feature
+zplug "zsh-users/zsh-history-substring-search", defer:2
 
-# setopt predict-on
-# predict-on
+# Tracks your most used directories, based on 'frecency'.
+zplug "rupa/z", use:"*.sh"
 
-zstyle ':completion:*' verbose true
-zstyle ':completion:*' auto-description 'specify: %d'
-zstyle ':completion:*' completer _expand _complete _correct _approximate
-zstyle ':completion:*' format 'Completing %d'
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*' menu select=2
-eval "$(dircolors -b)"
-# color
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
-zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
-zstyle ':completion:*' menu select=long
-zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
-zstyle ':completion:*' use-compctl false
+# A next-generation cd command with an interactive filter
+zplug "b4b4r07/enhancd", use:init.sh
 
-zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
-zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+# This plugin adds many useful aliases and functions.
+zplug "plugins/git",   from:oh-my-zsh
 
+# Powerline
+PYTHON_DIST_DIR="${HOME}/.local/lib/python3.6/site-packages"
+source "${PYTHON_DIST_DIR}/powerline/bindings/zsh/powerline.zsh"
+# Powerlevel9k Theme
+zplug "bhilburn/powerlevel9k", use:powerlevel9k.zsh-theme
 
-#aliases
-alias where="command -v"
-alias j="jobs -l"
-
-alias ls="ls -G --color=auto"
-alias la="ls -a"
-alias lf="ls -F"
-alias ll="ls -l"
-
-alias du="du -h"
-alias df="df -h"
-
-alias su="su -l"
-
-alias -g gp='| grep -i'
-alias -s log="less -MN"
-
-# for tmux in ubuntu
-# sudo apt-get install xsel
-alias pbcopy='xsel --clipboard --input'
-alias pbpaste='xsel --clipboard --output'
-alias tmux-copy='tmux save-buffer - | pbcopy'
-
-function fxg() {
-  find -name "$1" -print |xargs grep -inH "$2"
+# For minikube
+function minikube-docker-env(){
+  eval $(minikube docker-env)
+  export DOCKER_MACHINE_NAME="minikube"
+}
+function minikube-docker-env-u(){
+  eval $(minikube docker-env -u)
+  unset DOCKER_MACHINE_NAME
 }
 
-# emacs
-alias emacs='emacs-26.0.50'
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status vcs root_indicator background_jobs ram disk_usage time)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir command_execution_time anaconda docker_machine rbenv ssh)
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
 
+# Then, source plugins and add commands to $PATH
+zplug load --verbose
+
+
+# Better history searching with arrow keys
+if zplug check "zsh-users/zsh-history-substring-search"; then
+    bindkey "$terminfo[kcuu1]" history-substring-search-up
+    bindkey "$terminfo[kcud1]" history-substring-search-down
+fi
+
+# Add color to ls command
+export CLICOLOR=1
+
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+GCSDK=/Users/a14673/google-cloud-sdk
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "${GCSDK}/path.zsh.inc" ]; then source "${GCSDK}/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "${GCSDK}/completion.zsh.inc" ]; then source "${GCSDK}/completion.zsh.inc"; fi
+
+alias k=kubectl
+
+function gch() {
+    if [[ -z "$1" ]]; then
+        echo "need env"
+        exit 1
+    fi
+    source activate py2
+    if [[ "$1" = "prod" ]]; then
+        gcloud config configurations activate swallow-prod
+    elif [[ "$1" != "local" ]]; then
+        gcloud config configurations activate swallow
+    fi
+    if [[ "$1" = "local" ]]; then
+        kubectl config use-context minikube
+    else
+        env="$1"
+        gcloud container clusters get-credentials ${env}-cluster
+    fi
+}
+
+alias gch-check='cat ~/.kube/config|grep current-context'
