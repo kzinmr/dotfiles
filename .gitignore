@@ -3,14 +3,9 @@
 /.*
 
 # not ignore
-# Emacs
-!/.emacs.d/
+!/scripts
+!/configs
 
-
-
-!/.zshrc
-!/.zshenv
 !/.gitconfig
 !/.gitignore
-!/.xmodmap
 !/.tmux.conf
