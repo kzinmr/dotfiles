@@ -12,7 +12,7 @@ brew install tree
 brew install git
 brew install gh
 
-/bin/zsh prezto.zsh
+/bin/zsh $HOME/dotfiles/scripts/prezto.zsh
 chsh -s "$(which zsh)"
 
 # Apps

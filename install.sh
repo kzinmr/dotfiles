@@ -37,8 +37,7 @@ detect_os() {
 
 # メイン処理
 main() {
-    os=$(detect_os)
-    local os;
+    local os=$(detect_os)
 
     # OS固有のセットアップ
     if [ -f "scripts/${os}.sh" ]; then
@@ -50,7 +49,7 @@ main() {
 
     # 共通設定の配置
     deploy_config "$CONFIG_DIR"/zsh/env.zsh "$HOME"/env.zsh
-    cat "source $HOME/env.zsh" >> "$HOME"/.zprofile
+    echo "source $HOME/env.zsh" >> "$HOME"/.zprofile
     deploy_config "$CONFIG_DIR"/git/.gitignore "$HOME"/.gitignore
     git config --global core.excludesfile "$HOME"/.gitignore
 
