@@ -21,3 +21,5 @@ brew install --cask visual-studio-code
 # Programming
 curl -LsSf https://astral.sh/uv/install.sh | sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl https://get.volta.sh | bash
+volta install node
