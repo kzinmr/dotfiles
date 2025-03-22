@@ -11,6 +11,7 @@ brew install tmux
 brew install tree
 brew install git
 brew install gh
+brew install ripgrep
 
 /bin/zsh $HOME/dotfiles/scripts/prezto.zsh
 chsh -s "$(which zsh)"
