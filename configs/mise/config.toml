@@ -1,0 +1,16 @@
+[settings.pipx]
+uvx = true
+
+[tools]
+aws-cli = "latest"
+terraform = "latest"
+github-cli = "latest"
+node = "latest"
+python = "latest"
+uv = "latest"
+fzf = "latest"
+tmux = "latest"
+rg = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = []

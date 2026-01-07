@@ -22,5 +22,6 @@ alias gpush='git push origin HEAD'
 alias ghpr='gh pr create --web'
 alias ggc='git add . && git commit -m.'
 alias ghead='git rev-parse HEAD'
+alias gclean='git reset --hard origin/main'
 
 function gwtadd() { git worktree add "../$1" -b "$1" }
